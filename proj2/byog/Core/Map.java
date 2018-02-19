@@ -13,19 +13,20 @@ import java.util.Random;
 //       fill until desired amount of rooms
 //       hallways can be implemented later to connect rooms
 public class Map {
-    private static final int WIDTH = 85;
-    private static final int HEIGHT = 50;
-
     private static final long SEED = 1234567;
     private static final Random RANDOM = new Random(SEED);
 
     private static final int minsize = 5, maxsize = 12;
+    private int seed, width, height;
     private ArrayList<Room> rooms;
     private TETile[][] world;
 
-    public Map() {
+    public Map(int seed, int width, int height) {
+        this.seed = seed;
+        this.width = width;
+        this.height = height;
         rooms = new ArrayList<>();
-        world = new TETile[WIDTH][HEIGHT];
+        world = new TETile[width][height];
     }
 
     /**
@@ -45,13 +46,13 @@ public class Map {
      * it has to be connected to hallways
      * we have to leave an opening somewhere and link up the room and hallway
      */
-    public static Room generateRoom() {
+    private Room generateRoom() {
         int rwidth = minsize + RANDOM.nextInt(maxsize - minsize + 1);
         int rlength = minsize + RANDOM.nextInt(maxsize - minsize + 1);
-        int rx = RANDOM.nextInt(WIDTH);
-        int ry = RANDOM.nextInt(HEIGHT);
+        int rx = RANDOM.nextInt(width);
+        int ry = RANDOM.nextInt(height);
 
-        if (rx < (WIDTH - maxsize) && ry < (HEIGHT- maxsize)) {
+        if (rx < (width - maxsize) && ry < (height- maxsize)) {
             return new Room(new Tuple(rx, ry), new Tuple(rx + rwidth, ry),
                 new Tuple(rx, ry + rlength), new Tuple(rx + rwidth, ry + rlength));
         }
@@ -93,7 +94,7 @@ public class Map {
     // Used to calculate the maximum amount of rooms
     private int maxRooms() {
         int max = maxsize*maxsize;
-        int area = WIDTH * HEIGHT;
+        int area = width * height;
         return area/max;
     }
 
@@ -102,8 +103,8 @@ public class Map {
      * should only be called on first round
      */
     public void fillEmpty() {
-        for (int i = 0; i < WIDTH; i++) {
-            for (int j = 0; j < HEIGHT; j++) {
+        for (int i = 0; i < width; i++) {
+            for (int j = 0; j < height; j++) {
                 world[i][j] = Tileset.NOTHING;
             }
         }
@@ -111,8 +112,8 @@ public class Map {
 
     public void fillAutomata() {
         double life = .4;
-        for (int i = 0; i < WIDTH; i++) {
-            for (int j = 0; j < HEIGHT; j++) {
+        for (int i = 0; i < width; i++) {
+            for (int j = 0; j < height; j++) {
                 if (RANDOM.nextDouble() < life) {
                     world[i][j] = Tileset.FLOOR;
                 } else {
