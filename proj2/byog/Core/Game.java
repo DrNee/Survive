@@ -31,8 +31,21 @@ public class Game {
         // TODO: Fill out this method to run the game using the input passed in,
         // and return a 2D tile representation of the world that would have been
         // drawn if the same inputs had been given to playWithKeyboard().
-
-        TETile[][] finalWorldFrame = null;
+        readInput(input);
+        ter.initialize(WIDTH, HEIGHT);
+        Map test = new Map();
+        initial(test);
+        TETile[][] finalWorldFrame = test.getWorld();
+        ter.renderFrame(finalWorldFrame);
         return finalWorldFrame;
+    }
+
+    public void initial(Map map) {
+        map.fillEmpty();
+        map.addRooms(15);
+    }
+
+    public void readInput(String input) {
+
     }
 }

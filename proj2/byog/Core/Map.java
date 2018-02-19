@@ -125,13 +125,4 @@ public class Map {
     public TETile[][] getWorld() {
         return world;
     }
-
-    public static void main(String[] args) {
-        TERenderer ter = new TERenderer();
-        ter.initialize(WIDTH, HEIGHT);
-        Map test = new Map();
-        test.fillAutomata();
-        test.addRooms(15);
-        ter.renderFrame(test.world);
-    }
 }
