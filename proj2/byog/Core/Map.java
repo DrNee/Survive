@@ -7,16 +7,20 @@ import byog.TileEngine.Tileset;
 import java.util.ArrayList;
 import java.util.Random;
 
+// TODO: can try to connect rooms by putting a random opening on a room and connecting it
+// to another room with the shortest distance (can create method)
+
+// TODO: alternative connecting rooms by finding centers, connecting centers
+
 // NEW IDEA: WHAT IF WE RUN CELLULAR AUTOMATA FIRST AND  THEN PLACE ROOMS ON TOP
 // WILL THIS ALREADY CREATE HALLWAYS?
 // TODO: Brute force method, fill every place with room and check if it intersects,
 //       fill until desired amount of rooms
 //       hallways can be implemented later to connect rooms
 public class Map {
-    private static final long SEED = 1234567;
-    private static final Random RANDOM = new Random(SEED);
-
     private static final int minsize = 5, maxsize = 12;
+
+    private Random random;
     private int seed, width, height;
     private ArrayList<Room> rooms;
     private TETile[][] world;
@@ -25,6 +29,7 @@ public class Map {
         this.seed = seed;
         this.width = width;
         this.height = height;
+        random = new Random(seed);
         rooms = new ArrayList<>();
         world = new TETile[width][height];
     }
@@ -47,10 +52,10 @@ public class Map {
      * we have to leave an opening somewhere and link up the room and hallway
      */
     private Room generateRoom() {
-        int rwidth = minsize + RANDOM.nextInt(maxsize - minsize + 1);
-        int rlength = minsize + RANDOM.nextInt(maxsize - minsize + 1);
-        int rx = RANDOM.nextInt(width);
-        int ry = RANDOM.nextInt(height);
+        int rwidth = minsize + random.nextInt(maxsize - minsize + 1);
+        int rlength = minsize + random.nextInt(maxsize - minsize + 1);
+        int rx = random.nextInt(width);
+        int ry = random.nextInt(height);
 
         if (rx < (width - maxsize) && ry < (height- maxsize)) {
             return new Room(new Tuple(rx, ry), new Tuple(rx + rwidth, ry),
@@ -114,7 +119,7 @@ public class Map {
         double life = .4;
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
-                if (RANDOM.nextDouble() < life) {
+                if (random.nextDouble() < life) {
                     world[i][j] = Tileset.FLOOR;
                 } else {
                     world[i][j] = Tileset.NOTHING;

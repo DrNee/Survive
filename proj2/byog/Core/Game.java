@@ -2,6 +2,9 @@ package byog.Core;
 
 import byog.TileEngine.TERenderer;
 import byog.TileEngine.TETile;
+import edu.princeton.cs.introcs.StdDraw;
+
+import java.awt.event.KeyEvent;
 
 public class Game {
     TERenderer ter = new TERenderer();
@@ -13,6 +16,11 @@ public class Game {
      * Method used for playing a fresh game. The game should start from the main menu.
      */
     public void playWithKeyboard() {
+        while (true) {
+            if (StdDraw.isKeyPressed(KeyEvent.VK_COLON) && StdDraw.isKeyPressed(KeyEvent.VK_Q)) {
+                System.exit(0);
+            }
+        }
     }
 
     /**
@@ -48,12 +56,12 @@ public class Game {
     public String readInput(String input) {
         int l = input.length();
         String seed = "";
-        if (!input.substring(l - 2, l - 1).equalsIgnoreCase("s")
+        if (!input.substring(l - 1, l).equalsIgnoreCase("s")
                 || !input.substring(0, 1).equalsIgnoreCase("n")) {
             System.exit(0);
         }
         else {
-            seed = input.substring(1, l - 2);
+            seed = input.substring(1, l - 1);
         }
         return seed;
     }
