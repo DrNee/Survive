@@ -46,9 +46,15 @@ public class Game {
     }
 
     public String readInput(String input) {
-        if (input.substring(0, 1).equalsIgnoreCase("n")) {
-            continue;
+        int l = input.length();
+        String seed = "";
+        if (!input.substring(l - 2, l - 1).equalsIgnoreCase("s")
+                || !input.substring(0, 1).equalsIgnoreCase("n")) {
+            System.exit(0);
         }
-        else (input.substring())
+        else {
+            seed = input.substring(1, l - 2);
+        }
+        return seed;
     }
 }
