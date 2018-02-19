@@ -30,8 +30,33 @@ public class Room {
             }
         }
         return false;
-        // (c3.x >= r.c2.x || r.c3.x >= c2.x) && (c3.y <= r.c2.y || r.c3.y <= c2.y)
-        // c1.x <= r.c2.x && c2.x >= r.c2.x && c3.y <= r.c1.y && r.c3.y >= c1.y
+    }
+
+    // Calculates center of room, can be used to find distance between two rooms
+    private Tuple calcCenter() {
+        return new Tuple((c1.x + c2.x) / 2, (c3.y + c1.y) / 2);
+    }
+
+    // Calculates distance between a single room
+    public double calcDist(Room room) {
+        Tuple sqC = this.calcCenter();
+        Tuple sqR = room.calcCenter();
+        return Math.sqrt(Math.abs(
+                (sqC.x - sqR.x) * (sqC.x - sqR.x) + (sqC.y - sqR.y) * (sqC.y - sqR.y)));
+    }
+
+    // Calculates distance between all rooms, returns nearest room index
+    // After calculating nearest, get rid of the selection to not have a million hallways
+    public int calcNearest(ArrayList<Room> rooms) {
+        int index = 0;
+        Room nearest = rooms.get(0);
+        for (int i = 1; i < rooms.size(); i++) {
+            if (this.calcDist(rooms.get(i)) <= this.calcDist(nearest)) {
+                nearest = rooms.get(i);
+                index = i;
+            }
+        }
+        return index;
     }
 
     // get method for each corner

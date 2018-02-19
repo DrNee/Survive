@@ -11,6 +11,12 @@ import java.util.Random;
 // to another room with the shortest distance (can create method)
 
 // TODO: alternative connecting rooms by finding centers, connecting centers
+// TODO: to fix method above // to be able to connect different rooms everytime,
+// TODO: combine one room at a time, move onto the next room and find the next closest
+// TODO: to that one and connect those two, eventually, we will reach the final
+
+// TODO: another alt, have rooms and just add a hallway randomly because we know
+//      placement of rooms, can do random length, min just has to be the distance to the room
 
 // NEW IDEA: WHAT IF WE RUN CELLULAR AUTOMATA FIRST AND  THEN PLACE ROOMS ON TOP
 // WILL THIS ALREADY CREATE HALLWAYS?
@@ -33,18 +39,6 @@ public class Map {
         rooms = new ArrayList<>();
         world = new TETile[width][height];
     }
-
-    /**
-     * generate a hallway, have to check the size of the hallway
-     * it has to be connected to room
-     * hallways are probably with a width of three and random length (pref not too long)
-     * might split into two methods, vertical and horizontal
-     * can override walls to connect rooms
-     */
-    public static void generateHallway() {
-
-    }
-
 
     /**
      * generate a room, have to check the size of the room
@@ -101,6 +95,21 @@ public class Map {
         int max = maxsize*maxsize;
         int area = width * height;
         return area/max;
+    }
+
+    /**
+     * generate a hallway, have to check the size of the hallway
+     * it has to be connected to room
+     * hallways are probably with a width of three and random length (pref not too long)
+     * might split into two methods, vertical and horizontal
+     * can override walls to connect rooms
+     */
+    public void generateHallway() {
+
+    }
+
+    public void addHallways() {
+
     }
 
     /**
