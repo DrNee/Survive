@@ -7,7 +7,6 @@ import java.util.Random;
 public class Room {
     // tuples are in the form (x, y)
     private Tuple c1, c2, c3, c4;
-    private boolean entrance = false;
 
     /**
      * All rooms rectangular right now
@@ -39,31 +38,79 @@ public class Room {
     }
 
     // Calculates distance between a single room
-    public double calcDist(Room room) {
-        Tuple sqC = this.calcCenter();
-        Tuple sqR = room.calcCenter();
+    public double calcDist(Room r1) {
+        Tuple sqC = r1.calcCenter();
+        Tuple sqR = this.calcCenter();
         return Math.sqrt(Math.abs(
                 (sqC.x - sqR.x) * (sqC.x - sqR.x) + (sqC.y - sqR.y) * (sqC.y - sqR.y)));
     }
 
     // Calculates distance between all rooms, returns nearest room index
     // After calculating nearest, get rid of the selection to not have a million hallways
-    public int calcNearest(ArrayList<Room> rooms) {
-        int index = 0;
-        Room nearest = rooms.get(0);
-        for (Room r: rooms) {
-            if (!entrance) {
-                nearest = r;
-                break;
-            }
+    public int calcNearest(ArrayList<Room> rooms, ArrayList<Room> copy, int temp) {
+        int temp2 = temp + 1;
+        if (temp >= rooms.size() - 1) {
+            temp2 = temp - 2;
         }
-        for (int i = 0; i < rooms.size(); i++) {
-            if (this.calcDist(rooms.get(i)) <= this.calcDist(nearest) && rooms.get(i).entrance) {
-                nearest = rooms.get(i);
+        double nearest = calcDist(copy.get(temp2));
+        int index = 0;
+        for (int i = 0; i < copy.size(); i++) {
+            if (temp == i) {
+                continue;
+            }
+            if (nearest >= calcDist(copy.get(i))) {
+                nearest = calcDist(copy.get(i));
                 index = i;
             }
         }
         return index;
+//        int index = 0;
+//        Room nearest = rooms.get(0);
+//        for (int i = 0; i < rooms.size(); i++) {
+//            if (!rooms.get(i).entrance) {
+//                nearest = rooms.get(i);
+//                break;
+//            }
+//        }
+//        for (int i = 0; i < rooms.size(); i++) {
+//            if (this.calcDist(nearest) <= this.calcDist(rooms.get(i)) && !rooms.get(i).entrance) {
+//                nearest = rooms.get(i);
+//                index = i;
+//            }
+//        }
+//        return index;
+
+//        Room nearest = rooms.get(0);
+//        for (int i = 1; i < rooms.size(); i++) {
+//            if (nearest.calcDist(rooms.get(i)) <= i)
+//        }
+//
+//        Room nearest = rooms.get(0);
+//        double min = nearest.calcDist(rooms.get(1));
+//        System.out.println(min);
+//        int index = 0;
+//        for (int i = 2; i < rooms.size(); i++) {
+//            System.out.println(nearest.calcDist(rooms.get(i)));
+//            if (nearest.calcDist(rooms.get(i)) <= min) {
+//                min = nearest.calcDist(rooms.get(i));
+//                index = i;
+//            }
+//        }
+//        System.out.println(index);
+//        return index;
+//
+//        int index = 0;
+//        Room nearest = rooms.get(0);
+//        for (int i = 1; i < rooms.size(); i++) {
+//            System.out.println(nearest.calcDist(rooms.get(i)));
+//            System.out.println(this.calcDist(nearest));
+//            if (nearest.calcDist(rooms.get(i)) <= this.calcDist(nearest)) {
+//
+//                nearest = rooms.get(i);
+//                index = i;
+//            }
+//        }
+//        return index;
     }
 
     // get method for each corner
@@ -77,14 +124,6 @@ public class Room {
             default: break;
         }
         return tmp;
-    }
-
-    public void setEntrance(boolean entrance) {
-        this.entrance = entrance;
-    }
-
-    public boolean isEntrance() {
-        return entrance;
     }
 
     public String toString() {

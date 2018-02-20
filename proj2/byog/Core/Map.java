@@ -4,6 +4,7 @@ import byog.TileEngine.TERenderer;
 import byog.TileEngine.TETile;
 import byog.TileEngine.Tileset;
 
+import java.awt.image.AreaAveragingScaleFilter;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -123,25 +124,20 @@ public class Map {
     }
 
     public void addHallways() {
+        ArrayList<Room> copy = new ArrayList<>(rooms);
+        int temp = random.nextInt(rooms.size());
         for (int i = 0; i < rooms.size(); i++) {
-            if (!rooms.get(i).isEntrance()) {
-                int index = rooms.get(i).calcNearest(rooms);
-                int rand = random.nextInt(2);
-                Hallway hallway = generateHallway(rooms.get(i), rooms.get(index), rand);  // rand
-                Hallway hallway2 = generateHallway(rooms.get(index), rooms.get(i), Math.abs(rand - 1));  // Math.abs(rand - 1)
-                addToMap(hallway);
-                addToMap(hallway2);
-                rooms.get(i).setEntrance(true);
-            }
+            int index = rooms.get(temp).calcNearest(rooms, copy, temp);
+            int rand = random.nextInt(2);
+            Hallway hallway = generateHallway(rooms.get(temp), rooms.get(index), rand);
+            Hallway hallway2 = generateHallway(rooms.get(index), rooms.get(temp), Math.abs(rand - 1));
+            addToMap(hallway);
+            addToMap(hallway2);
+            copy.remove(rooms.get(temp));
+            copy.add(temp, new Room(new Tuple(1000, 1000), new Tuple(1000, 1000), new Tuple(1000, 1000), new Tuple(1000, 1000)));
+            temp = index;
         }
     }
-//
-//    public boolean inRoom(ArrayList<Room> rs, tuple) {
-//        for (int i = 0; i < rs.size(); i++) {
-//              if tuple in anyone of the rooms return fucked or not
-//        }
-//    }
-
 
     public void addToMap(Hallway hw) {
         int min = Math.min(hw.getP1(), hw.getP2());
@@ -155,15 +151,6 @@ public class Map {
                 world[hw.getLw()][i] = Tileset.FLOOR;
             }
         }
-//        for (int i = 0; i < width; i++) {
-//            for (int j = 0; j < height; j++) {
-//                Tuple co = new Tuple(i, j);
-//                if (inRoom(rs, co)) {
-//                    continue;
-//                } else if ()
-//                }
-//            }
-//        }
 //        int centerPlus = (r1.get(2).x - r1.get(1).x) / 2;
 //        int centerPlus1 = (r2.get(2).x - r2.get(1).x) / 2;
 //        int centerPlus2 = (r1.get(3).x - r1.get(1).x) / 2;
