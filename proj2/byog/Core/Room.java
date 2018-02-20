@@ -64,53 +64,6 @@ public class Room {
             }
         }
         return index;
-//        int index = 0;
-//        Room nearest = rooms.get(0);
-//        for (int i = 0; i < rooms.size(); i++) {
-//            if (!rooms.get(i).entrance) {
-//                nearest = rooms.get(i);
-//                break;
-//            }
-//        }
-//        for (int i = 0; i < rooms.size(); i++) {
-//            if (this.calcDist(nearest) <= this.calcDist(rooms.get(i)) && !rooms.get(i).entrance) {
-//                nearest = rooms.get(i);
-//                index = i;
-//            }
-//        }
-//        return index;
-
-//        Room nearest = rooms.get(0);
-//        for (int i = 1; i < rooms.size(); i++) {
-//            if (nearest.calcDist(rooms.get(i)) <= i)
-//        }
-//
-//        Room nearest = rooms.get(0);
-//        double min = nearest.calcDist(rooms.get(1));
-//        System.out.println(min);
-//        int index = 0;
-//        for (int i = 2; i < rooms.size(); i++) {
-//            System.out.println(nearest.calcDist(rooms.get(i)));
-//            if (nearest.calcDist(rooms.get(i)) <= min) {
-//                min = nearest.calcDist(rooms.get(i));
-//                index = i;
-//            }
-//        }
-//        System.out.println(index);
-//        return index;
-//
-//        int index = 0;
-//        Room nearest = rooms.get(0);
-//        for (int i = 1; i < rooms.size(); i++) {
-//            System.out.println(nearest.calcDist(rooms.get(i)));
-//            System.out.println(this.calcDist(nearest));
-//            if (nearest.calcDist(rooms.get(i)) <= this.calcDist(nearest)) {
-//
-//                nearest = rooms.get(i);
-//                index = i;
-//            }
-//        }
-//        return index;
     }
 
     // get method for each corner
@@ -126,6 +79,7 @@ public class Room {
         return tmp;
     }
 
+    // @source stackoverflow, looked up how to get hashcode to separate each room
     public String toString() {
         return "Room " + Integer.toHexString(hashCode()) + ": " + c1.toString()
                 + ", " + c2.toString() + ", " + c3.toString() + ", " + c4.toString();

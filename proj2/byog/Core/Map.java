@@ -63,12 +63,12 @@ public class Map {
     // adds the room to the map
     // change later makesure work
     private void addToMap(Room room) {
-        for (int i = room.get(1).x; i < room.get(2).x; i++) {
-            for (int j = room.get(1).y; j < room.get(3).y; j++) {
+        for (int i = room.get(1).x; i < room.get(2).x - 1; i++) {
+            for (int j = room.get(1).y; j < room.get(3).y - 1; j++) {
                 world[i][j] = Tileset.FLOOR;
             }
         }
-        // adding walls to the room
+        // adding walls to the room // temporarily do not need this
         for (int i = room.get(1).x; i < room.get(2).x; i++) {
             world[i][room.get(1).y] = Tileset.WALL;
             world[i][room.get(3).y - 1] = Tileset.WALL;
@@ -123,6 +123,11 @@ public class Map {
         return new Hallway(args1, args2, args3, type);
     }
 
+    /**
+     * connects hallways to rooms, using a copy arraylist to make a room not connect to
+     * a room that has already been connected
+     * randomly selects which room to begin with
+     */
     public void addHallways() {
         ArrayList<Room> copy = new ArrayList<>(rooms);
         int temp = random.nextInt(rooms.size());
@@ -139,6 +144,10 @@ public class Map {
         }
     }
 
+    /**
+     * adds hallway to map, checks if horizontal or vertical (0 or 1)
+     * @param hw the current hallway, parameters passed in checks the type
+     */
     public void addToMap(Hallway hw) {
         int min = Math.min(hw.getP1(), hw.getP2());
         int max = Math.max(hw.getP1(), hw.getP2());
@@ -152,35 +161,27 @@ public class Map {
             }
         }
         fillWalls();
-//        int centerPlus = (r1.get(2).x - r1.get(1).x) / 2;
-//        int centerPlus1 = (r2.get(2).x - r2.get(1).x) / 2;
-//        int centerPlus2 = (r1.get(3).x - r1.get(1).x) / 2;
-//        int centerPlus3 = (r2.get(3).x - r2.get(1).x) / 2;
-//        if (hw.getType() == 0) {
-//            for (int i = min + centerPlus; i < max - centerPlus1; i++) {
-//                world[i][hw.getLw() + 1] = Tileset.WALL;
-//                world[i][hw.getLw() - 1] = Tileset.WALL;
-//            }
-//        } else {
-//            for (int i = min + centerPlus2; i < max - centerPlus3; i++) {
-//                world[hw.getLw() - 1][i] = Tileset.WALL;
-//                world[hw.getLw() + 1][i] = Tileset.WALL;
-//            }
-//        }
-        //System.out.println(min + " " + max + " " + hw.getLw());
     }
 
+    /**
+     * changes all nothing tiles to walls that surround a floor
+     */
     public void fillWalls() {
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
-                if (world[i][j].equals(Tileset.NOTHING) && checkSurroundings(world, i, j)) {
+                if (world[i][j].equals(Tileset.NOTHING) && checkSurroundings(i, j)) {
                     world[i][j] = Tileset.WALL;
                 }
             }
         }
     }
 
-    public boolean checkSurroundings(TETile world[][], int x, int y) {
+    /**
+     * looks at the eight blocks surrounding, if its a floor, surround it with a wall
+     * @param x,y the tile being checked
+     * @return true/false for whether or not it should be changed
+     */
+    public boolean checkSurroundings(int x, int y) {
         boolean check = false;
         for (int i = -1; i < 2; i++) {
             for (int j = -1; j < 2; j++) {
@@ -188,9 +189,9 @@ public class Map {
                 int ny = y + j;
 
                 if (i ==0 && j == 0) {
-                    continue;
+
                 } else if (nx <= 0 || ny <= 0 || nx >= width || ny >= height) {
-                    continue;
+
                 } else if (world[nx][ny].equals(Tileset.FLOOR)) {
                     check = true;
                 }
@@ -211,6 +212,9 @@ public class Map {
         }
     }
 
+    /**
+     * to fill the map using cellular automata, not yet implemented
+     */
     public void fillAutomata() {
         double life = .2;
         for (int i = 0; i < width; i++) {
