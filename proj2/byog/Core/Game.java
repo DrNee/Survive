@@ -50,7 +50,7 @@ public class Game {
 
     public void initial(Map map) {
         map.fillEmpty();
-        map.addRooms(15);
+        map.addRooms(100);
     }
 
     public String readInput(String input) {

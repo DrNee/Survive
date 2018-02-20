@@ -1,8 +1,11 @@
 package byog.Core;
 
 public class Hallway {
-    public Hallway(int x1, int x2, int y) {
+    private int val1, val2, size;
 
+    public Hallway(int val1, int val2, int size) {
+        this.val1 = val1;
+        this.val2 = val2;
+        this.size = size;
     }
-
 }

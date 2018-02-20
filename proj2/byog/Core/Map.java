@@ -25,6 +25,7 @@ import java.util.Random;
 //       hallways can be implemented later to connect rooms
 public class Map {
     private static final int minsize = 5, maxsize = 12;
+    private static final int thresh = 3; //threshold for intersection
 
     private Random random;
     private int seed, width, height;
@@ -59,6 +60,7 @@ public class Map {
     }
 
     // adds the room to the map
+    // change later makesure work
     private void addToMap(Room room) {
         for (int i = room.get(1).x; i < room.get(2).x; i++) {
             for (int j = room.get(1).y; j < room.get(3).y; j++) {
@@ -83,7 +85,7 @@ public class Map {
     public void addRooms(int numRooms) {
         while (rooms.size() < numRooms && rooms.size() <= maxRooms()) {
             Room room = generateRoom();
-            if (rooms.size() == 0 || !room.intersect(rooms)) {
+            if (rooms.size() == 0 || !room.intersect(rooms, thresh)) {
                 rooms.add(room);
                 addToMap(room);
             }
@@ -92,7 +94,7 @@ public class Map {
 
     // Used to calculate the maximum amount of rooms
     private int maxRooms() {
-        int max = maxsize*maxsize;
+        int max = (maxsize + thresh) * (maxsize + thresh);
         int area = width * height;
         return area/max;
     }
@@ -125,13 +127,13 @@ public class Map {
     }
 
     public void fillAutomata() {
-        double life = .4;
+        double life = .2;
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
                 if (random.nextDouble() < life) {
-                    world[i][j] = Tileset.FLOOR;
+                    world[i][j] = Tileset.WALL;
                 } else {
-                    world[i][j] = Tileset.NOTHING;
+                    world[i][j] = Tileset.FLOOR;
                 }
             }
         }

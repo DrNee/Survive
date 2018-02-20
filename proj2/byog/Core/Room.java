@@ -7,6 +7,7 @@ import java.util.Random;
 public class Room {
     // tuples are in the form (x, y)
     private Tuple c1, c2, c3, c4;
+    private boolean entrance = false, exit = false;
 
     /**
      * All rooms rectangular right now
@@ -23,9 +24,9 @@ public class Room {
     }
 
     // checks if two rectangles intersect with each other
-    public boolean intersect(ArrayList<Room> rooms) {
+    public boolean intersect(ArrayList<Room> rooms, int t) {
         for (Room r: rooms) {
-            if (c1.x < r.c2.x && c2.x > r.c1.x && c1.y < r.c3.y && c3.y > r.c1.y) {
+            if (c1.x < r.c2.x + t && c2.x + t > r.c1.x && c1.y < r.c3.y + t && c3.y + t > r.c1.y) {
                 return true;
             }
         }
