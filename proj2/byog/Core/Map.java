@@ -26,7 +26,7 @@ import java.util.Random;
 //       hallways can be implemented later to connect rooms
 public class Map {
     private static final int minsize = 5, maxsize = 12;
-    private static final int thresh = 4; //threshold for intersection
+    private static final int thresh = 3; //threshold for intersection
 
     private Random random;
     private int seed, width, height;
@@ -151,6 +151,7 @@ public class Map {
                 world[hw.getLw()][i] = Tileset.FLOOR;
             }
         }
+        fillWalls();
 //        int centerPlus = (r1.get(2).x - r1.get(1).x) / 2;
 //        int centerPlus1 = (r2.get(2).x - r2.get(1).x) / 2;
 //        int centerPlus2 = (r1.get(3).x - r1.get(1).x) / 2;
@@ -167,6 +168,35 @@ public class Map {
 //            }
 //        }
         //System.out.println(min + " " + max + " " + hw.getLw());
+    }
+
+    public void fillWalls() {
+        for (int i = 0; i < width; i++) {
+            for (int j = 0; j < height; j++) {
+                if (world[i][j].equals(Tileset.NOTHING) && checkSurroundings(world, i, j)) {
+                    world[i][j] = Tileset.WALL;
+                }
+            }
+        }
+    }
+
+    public boolean checkSurroundings(TETile world[][], int x, int y) {
+        boolean check = false;
+        for (int i = -1; i < 2; i++) {
+            for (int j = -1; j < 2; j++) {
+                int nx = x + i;
+                int ny = y + j;
+
+                if (i ==0 && j == 0) {
+                    continue;
+                } else if (nx <= 0 || ny <= 0 || nx >= width || ny >= height) {
+                    continue;
+                } else if (world[nx][ny].equals(Tileset.FLOOR)) {
+                    check = true;
+                }
+            }
+        }
+        return check;
     }
 
     /**
