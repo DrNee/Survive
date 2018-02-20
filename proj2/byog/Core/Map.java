@@ -25,7 +25,7 @@ import java.util.Random;
 //       hallways can be implemented later to connect rooms
 public class Map {
     private static final int minsize = 5, maxsize = 12;
-    private static final int thresh = 3; //threshold for intersection
+    private static final int thresh = 4; //threshold for intersection
 
     private Random random;
     private int seed, width, height;
@@ -105,13 +105,81 @@ public class Map {
      * hallways are probably with a width of three and random length (pref not too long)
      * might split into two methods, vertical and horizontal
      * can override walls to connect rooms
+     * @param type refers to horizontal (0) or vertical (1)
      */
-    public void generateHallway() {
-
+    public Hallway generateHallway(Room r1, Room r2, int type) {
+        int args1 = 0, args2 = 0, args3 = 0;
+        if (type == 0) {
+            args1 = r1.calcCenter().x;
+            args2 = r2.calcCenter().x;
+            args3 = r2.calcCenter().y;
+        }
+        if (type == 1) {
+            args1 = r1.calcCenter().y;
+            args2 = r2.calcCenter().y;
+            args3 = r2.calcCenter().x;
+        }
+        return new Hallway(args1, args2, args3, type);
     }
 
     public void addHallways() {
+        for (int i = 0; i < rooms.size(); i++) {
+            if (!rooms.get(i).isEntrance()) {
+                int index = rooms.get(i).calcNearest(rooms);
+                int rand = random.nextInt(2);
+                Hallway hallway = generateHallway(rooms.get(i), rooms.get(index), rand);  // rand
+                Hallway hallway2 = generateHallway(rooms.get(index), rooms.get(i), Math.abs(rand - 1));  // Math.abs(rand - 1)
+                addToMap(hallway);
+                addToMap(hallway2);
+                rooms.get(i).setEntrance(true);
+            }
+        }
+    }
+//
+//    public boolean inRoom(ArrayList<Room> rs, tuple) {
+//        for (int i = 0; i < rs.size(); i++) {
+//              if tuple in anyone of the rooms return fucked or not
+//        }
+//    }
 
+
+    public void addToMap(Hallway hw) {
+        int min = Math.min(hw.getP1(), hw.getP2());
+        int max = Math.max(hw.getP1(), hw.getP2());
+        if (hw.getType() == 0) {
+            for (int i = min; i <= max; i++) {
+                world[i][hw.getLw()] = Tileset.FLOOR;
+            }
+        } else {
+            for (int i = min; i <= max; i++) {
+                world[hw.getLw()][i] = Tileset.FLOOR;
+            }
+        }
+//        for (int i = 0; i < width; i++) {
+//            for (int j = 0; j < height; j++) {
+//                Tuple co = new Tuple(i, j);
+//                if (inRoom(rs, co)) {
+//                    continue;
+//                } else if ()
+//                }
+//            }
+//        }
+//        int centerPlus = (r1.get(2).x - r1.get(1).x) / 2;
+//        int centerPlus1 = (r2.get(2).x - r2.get(1).x) / 2;
+//        int centerPlus2 = (r1.get(3).x - r1.get(1).x) / 2;
+//        int centerPlus3 = (r2.get(3).x - r2.get(1).x) / 2;
+//        if (hw.getType() == 0) {
+//            for (int i = min + centerPlus; i < max - centerPlus1; i++) {
+//                world[i][hw.getLw() + 1] = Tileset.WALL;
+//                world[i][hw.getLw() - 1] = Tileset.WALL;
+//            }
+//        } else {
+//            for (int i = min + centerPlus2; i < max - centerPlus3; i++) {
+//                world[hw.getLw() - 1][i] = Tileset.WALL;
+//                world[hw.getLw() + 1][i] = Tileset.WALL;
+//            }
+//        }
+        //System.out.println(min + " " + max + " " + hw.getLw());
     }
 
     /**

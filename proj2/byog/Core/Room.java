@@ -7,7 +7,7 @@ import java.util.Random;
 public class Room {
     // tuples are in the form (x, y)
     private Tuple c1, c2, c3, c4;
-    private boolean entrance = false, exit = false;
+    private boolean entrance = false;
 
     /**
      * All rooms rectangular right now
@@ -34,7 +34,7 @@ public class Room {
     }
 
     // Calculates center of room, can be used to find distance between two rooms
-    private Tuple calcCenter() {
+    public Tuple calcCenter() {
         return new Tuple((c1.x + c2.x) / 2, (c3.y + c1.y) / 2);
     }
 
@@ -51,8 +51,14 @@ public class Room {
     public int calcNearest(ArrayList<Room> rooms) {
         int index = 0;
         Room nearest = rooms.get(0);
-        for (int i = 1; i < rooms.size(); i++) {
-            if (this.calcDist(rooms.get(i)) <= this.calcDist(nearest)) {
+        for (Room r: rooms) {
+            if (!entrance) {
+                nearest = r;
+                break;
+            }
+        }
+        for (int i = 0; i < rooms.size(); i++) {
+            if (this.calcDist(rooms.get(i)) <= this.calcDist(nearest) && rooms.get(i).entrance) {
                 nearest = rooms.get(i);
                 index = i;
             }
@@ -71,5 +77,18 @@ public class Room {
             default: break;
         }
         return tmp;
+    }
+
+    public void setEntrance(boolean entrance) {
+        this.entrance = entrance;
+    }
+
+    public boolean isEntrance() {
+        return entrance;
+    }
+
+    public String toString() {
+        return "Room " + Integer.toHexString(hashCode()) + ": " + c1.toString()
+                + ", " + c2.toString() + ", " + c3.toString() + ", " + c4.toString();
     }
 }
