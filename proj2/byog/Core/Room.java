@@ -38,11 +38,11 @@ public class Room {
     }
 
     // Calculates distance between a single room
-    public double calcDist(Room r1) {
+    public int calcDist(Room r1) {
         Tuple sqC = r1.calcCenter();
         Tuple sqR = this.calcCenter();
-        return Math.sqrt(Math.abs(
-                (sqC.x - sqR.x) * (sqC.x - sqR.x) + (sqC.y - sqR.y) * (sqC.y - sqR.y)));
+        return Math.abs(
+                (sqC.x - sqR.x) * (sqC.x - sqR.x) + (sqC.y - sqR.y) * (sqC.y - sqR.y));
     }
 
     // Calculates distance between all rooms, returns nearest room index
@@ -52,7 +52,7 @@ public class Room {
         if (temp >= rooms.size() - 1) {
             temp2 = temp - 2;
         }
-        double nearest = calcDist(copy.get(temp2));
+        int nearest = calcDist(copy.get(temp2));
         int index = 0;
         for (int i = 0; i < copy.size(); i++) {
             if (temp == i) {

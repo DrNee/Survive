@@ -29,11 +29,12 @@ public class Map {
     private static final int thresh = 3; //threshold for intersection
 
     private Random random;
-    private int seed, width, height;
+    private long seed;
+    private int width, height;
     private ArrayList<Room> rooms;
     private TETile[][] world;
 
-    public Map(int seed, int width, int height) {
+    public Map(long seed, int width, int height) {
         this.seed = seed;
         this.width = width;
         this.height = height;
@@ -139,7 +140,8 @@ public class Map {
             addToMap(hallway);
             addToMap(hallway2);
             copy.remove(rooms.get(temp));
-            copy.add(temp, new Room(new Tuple(1000, 1000), new Tuple(1000, 1000), new Tuple(1000, 1000), new Tuple(1000, 1000)));
+            copy.add(temp, new Room(new Tuple(1000, 1000), new Tuple(1000, 1000),
+                    new Tuple(1000, 1000), new Tuple(1000, 1000)));
             temp = index;
         }
     }

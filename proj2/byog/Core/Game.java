@@ -41,7 +41,7 @@ public class Game {
         // drawn if the same inputs had been given to playWithKeyboard().
         String seed = readInput(input);
         ter.initialize(WIDTH, HEIGHT);
-        Map test = new Map(Integer.parseInt(seed), WIDTH, HEIGHT);
+        Map test = new Map(Long.parseLong(seed), WIDTH, HEIGHT);
         initial(test);
         TETile[][] finalWorldFrame = test.getWorld();
         ter.renderFrame(finalWorldFrame);
@@ -50,7 +50,7 @@ public class Game {
 
     public void initial(Map map) {
         map.fillEmpty();
-        map.addRooms(15);
+        map.addRooms(20);
         map.addHallways();
     }
 
