@@ -1,14 +1,12 @@
 package byog.Core;
 
-import byog.TileEngine.TERenderer;
-import byog.TileEngine.TETile;
 import edu.princeton.cs.introcs.StdDraw;
 
 import java.awt.*;
 
 public class Menu {
     private int WIDTH, HEIGHT;
-    protected long seed;
+    protected Long seed;
 
     public void run() {
         mainMenu();
@@ -44,7 +42,7 @@ public class Menu {
                 switch (StdDraw.nextKeyTyped()) {
                     case 'n':
                         seed = seedEnter();
-                        break;
+                        return;
                     case 'l':
                         ;
                         break;

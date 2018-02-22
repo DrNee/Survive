@@ -21,6 +21,7 @@ public class Game {
         ter.initialize(WIDTH, HEIGHT);
         Menu menu = new Menu(WIDTH, HEIGHT);
         menu.run();
+        System.out.println(menu.seed);
         Map test = new Map(menu.seed, WIDTH, HEIGHT);
         test.generate();
         TETile[][] finalWorldFrame = test.getWorld();

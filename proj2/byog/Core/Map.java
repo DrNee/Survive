@@ -25,16 +25,16 @@ import java.util.Random;
 //       fill until desired amount of rooms
 //       hallways can be implemented later to connect rooms
 public class Map {
-    private static final int minsize = 8, maxsize = 12;
+    private static final int minsize = 7, maxsize = 12;
     private static final int thresh = 1; //threshold for intersection
 
     private Random random;
-    private long seed;
+    private Long seed;
     private int width, height;
     private ArrayList<Room> rooms;
     private TETile[][] world;
 
-    public Map(long seed, int width, int height) {
+    public Map(Long seed, int width, int height) {
         this.seed = seed;
         this.width = width;
         this.height = height;
@@ -233,7 +233,7 @@ public class Map {
 
     public void generate() {
         fillEmpty();
-        addRooms(20);
+        addRooms(15);
         addHallways();
     }
 
