@@ -40,19 +40,19 @@ public class Menu {
 
     public void menuInput() {
         while (true) {
-//            if (StdDraw.hasNextKeyTyped()) {
-//                switch (StdDraw.nextKeyTyped()) {
-//                    case 'n':
-//                        seed = seedEnter();
-//                        return;
-////                    case 'l':
-////                        break;
-////                    case 'q':
-////                        System.exit(0);
-////                    default:
-////                        break;
-//                }
-//            }
+            if (StdDraw.hasNextKeyTyped()) {
+                switch (StdDraw.nextKeyTyped()) {
+                    case 'n':
+                        seed = seedEnter();
+                        return;
+                    case 'l':
+                        break;
+                    case 'q':
+                        System.exit(0);
+                    default:
+                        break;
+                }
+            }
         }
     }
 

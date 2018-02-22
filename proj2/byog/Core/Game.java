@@ -17,13 +17,13 @@ public class Game {
      * Method used for playing a fresh game. The game should start from the main menu.
      */
     public void playWithKeyboard() {
-        // initialize starting screen
-        ter.initialize(WIDTH, HEIGHT);
+        // initialize main menu
         Menu menu = new Menu(WIDTH, HEIGHT);
         menu.run();
 
         // generate the map from the given seed
         Map test = new Map(menu.seed, WIDTH, HEIGHT);
+        ter.initialize(WIDTH, HEIGHT);
         test.generate();
         TETile[][] finalWorldFrame = test.getWorld();
         ter.renderFrame(finalWorldFrame);
