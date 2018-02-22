@@ -2,7 +2,7 @@ package byog.Core;
 
 import byog.TileEngine.TERenderer;
 import byog.TileEngine.TETile;
-//import edu.princeton.cs.introcs.StdDraw;
+import edu.princeton.cs.introcs.StdDraw;
 
 import java.awt.Font;
 
