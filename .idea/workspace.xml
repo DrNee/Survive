@@ -4,7 +4,6 @@
     <list default="true" id="1df8c0e3-6593-4336-a984-8b5115602764" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/proj2/byog/Core/Game.java" afterPath="$PROJECT_DIR$/proj2/byog/Core/Game.java" />
-      <change beforePath="$PROJECT_DIR$/proj2/byog/TileEngine/Tileset.java" afterPath="$PROJECT_DIR$/proj2/byog/TileEngine/Tileset.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -61,7 +60,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Tileset.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Tileset.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/proj2/byog/TileEngine/Tileset.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="183">
@@ -100,7 +99,7 @@
       <file leaf-file-name="Menu.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/proj2/byog/Core/Menu.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="496">
+            <state relative-caret-position="1054">
               <caret line="50" column="43" lean-forward="true" selection-start-line="50" selection-start-column="43" selection-end-line="50" selection-end-column="43" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -109,11 +108,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Game.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Game.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/proj2/byog/Core/Game.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="217">
-              <caret line="7" column="0" lean-forward="true" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+              <caret line="55" column="39" lean-forward="true" selection-start-line="55" selection-start-column="39" selection-end-line="55" selection-end-column="39" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -177,8 +176,8 @@
         <option value="$PROJECT_DIR$/proj2/byog/Core/Tuple.java" />
         <option value="$PROJECT_DIR$/proj2/byog/Core/Map.java" />
         <option value="$PROJECT_DIR$/proj2/byog/Core/Menu.java" />
-        <option value="$PROJECT_DIR$/proj2/byog/Core/Game.java" />
         <option value="$PROJECT_DIR$/proj2/byog/TileEngine/Tileset.java" />
+        <option value="$PROJECT_DIR$/proj2/byog/Core/Game.java" />
       </list>
     </option>
   </component>
@@ -407,12 +406,12 @@
       <workItem from="1519205166910" duration="4715000" />
       <workItem from="1519251926888" duration="12797000" />
       <workItem from="1519266687360" duration="49000" />
-      <workItem from="1519276375656" duration="5024000" />
+      <workItem from="1519276375656" duration="5172000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="67831000" />
+    <option name="totallyTimeSpent" value="67979000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1066" extended-state="6" />
@@ -1045,16 +1044,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/proj2/byog/Core/Menu.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="496">
-          <caret line="50" column="43" lean-forward="true" selection-start-line="50" selection-start-column="43" selection-end-line="50" selection-end-column="43" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/proj2/byog/Core/Map.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="899">
@@ -1069,21 +1058,31 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/proj2/byog/Core/Game.java">
+    <entry file="file://$PROJECT_DIR$/proj2/byog/TileEngine/Tileset.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="217">
-          <caret line="7" column="0" lean-forward="true" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+        <state relative-caret-position="183">
+          <caret line="19" column="23" lean-forward="false" selection-start-line="19" selection-start-column="23" selection-end-line="19" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/proj2/byog/Core/Menu.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1054">
+          <caret line="50" column="43" lean-forward="true" selection-start-line="50" selection-start-column="43" selection-end-line="50" selection-end-column="43" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/proj2/byog/TileEngine/Tileset.java">
+    <entry file="file://$PROJECT_DIR$/proj2/byog/Core/Game.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="183">
-          <caret line="19" column="23" lean-forward="false" selection-start-line="19" selection-start-column="23" selection-end-line="19" selection-end-column="23" />
-          <folding />
+        <state relative-caret-position="217">
+          <caret line="55" column="39" lean-forward="true" selection-start-line="55" selection-start-column="39" selection-end-line="55" selection-end-column="39" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
