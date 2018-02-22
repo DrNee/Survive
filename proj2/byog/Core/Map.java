@@ -1,32 +1,30 @@
 package byog.Core;
 
-import byog.TileEngine.TERenderer;
 import byog.TileEngine.TETile;
 import byog.TileEngine.Tileset;
 
-import java.awt.image.AreaAveragingScaleFilter;
 import java.util.ArrayList;
 import java.util.Random;
 
-// TODO: can try to connect rooms by putting a random opening on a room and connecting it
+// can try to connect rooms by putting a random opening on a room and connecting it
 // to another room with the shortest distance (can create method)
 
-// TODO: alternative connecting rooms by finding centers, connecting centers
-// TODO: to fix method above // to be able to connect different rooms everytime,
-// TODO: combine one room at a time, move onto the next room and find the next closest
-// TODO: to that one and connect those two, eventually, we will reach the final
+// alternative connecting rooms by finding centers, connecting centers
+// to fix method above // to be able to connect different rooms everytime,
+// combine one room at a time, move onto the next room and find the next closest
+// to that one and connect those two, eventually, we will reach the final
 
-// TODO: another alt, have rooms and just add a hallway randomly because we know
+// another alt, have rooms and just add a hallway randomly because we know
 //      placement of rooms, can do random length, min just has to be the distance to the room
 
 // NEW IDEA: WHAT IF WE RUN CELLULAR AUTOMATA FIRST AND  THEN PLACE ROOMS ON TOP
 // WILL THIS ALREADY CREATE HALLWAYS?
-// TODO: Brute force method, fill every place with room and check if it intersects,
+// Brute force method, fill every place with room and check if it intersects,
 //       fill until desired amount of rooms
 //       hallways can be implemented later to connect rooms
 public class Map {
-    private static final int minsize = 7, maxsize = 12;
-    private static final int thresh = 1; //threshold for intersection
+    private static final int MINSIZE = 7, MAXSIZE = 12;
+    private static final int THRESH = 1; //threshold for intersection
 
     private Random random;
     private Long seed;
@@ -49,12 +47,12 @@ public class Map {
      * we have to leave an opening somewhere and link up the room and hallway
      */
     private Room generateRoom() {
-        int rwidth = minsize + random.nextInt(maxsize - minsize + 1);
-        int rlength = minsize + random.nextInt(maxsize - minsize + 1);
+        int rwidth = MINSIZE + random.nextInt(MAXSIZE - MINSIZE + 1);
+        int rlength = MINSIZE + random.nextInt(MAXSIZE - MINSIZE + 1);
         int rx = random.nextInt(width);
         int ry = random.nextInt(height);
 
-        if (rx < (width - maxsize) && ry < (height- maxsize)) {
+        if (rx < (width - MAXSIZE) && ry < (height - MAXSIZE)) {
             return new Room(new Tuple(rx, ry), new Tuple(rx + rwidth, ry),
                 new Tuple(rx, ry + rlength), new Tuple(rx + rwidth, ry + rlength));
         }
@@ -87,7 +85,7 @@ public class Map {
     public void addRooms(int numRooms) {
         while (rooms.size() < numRooms && rooms.size() <= maxRooms()) {
             Room room = generateRoom();
-            if (rooms.size() == 0 || !room.intersect(rooms, thresh)) {
+            if (rooms.size() == 0 || !room.intersect(rooms, THRESH)) {
                 rooms.add(room);
                 addToMap(room);
             }
@@ -96,9 +94,9 @@ public class Map {
 
     // Used to calculate the maximum amount of rooms
     private int maxRooms() {
-        int max = (maxsize + thresh) * (maxsize + thresh);
+        int max = (MAXSIZE + THRESH) * (MAXSIZE + THRESH);
         int area = width * height;
-        return area/max;
+        return area / max;
     }
 
     /**
@@ -136,10 +134,10 @@ public class Map {
         for (int i = 0; i < rooms.size(); i++) {
             int index = rooms.get(temp).calcNearest(rooms, copy, temp);
             int rand = random.nextInt(2);
-            Hallway hallway = generateHallway(rooms.get(temp), rooms.get(index), rand);
-            Hallway hallway2 = generateHallway(rooms.get(index), rooms.get(temp), Math.abs(rand - 1));
-            addToMap(hallway);
-            addToMap(hallway2);
+            Hallway hw = generateHallway(rooms.get(temp), rooms.get(index), rand);
+            Hallway hw2 = generateHallway(rooms.get(index), rooms.get(temp), Math.abs(rand - 1));
+            addToMap(hw);
+            addToMap(hw2);
             copy.remove(rooms.get(temp));
             copy.add(temp, new Room(new Tuple(1000, 1000), new Tuple(1000, 1000),
                     new Tuple(1000, 1000), new Tuple(1000, 1000)));
@@ -192,9 +190,9 @@ public class Map {
                 int ny = y + j;
 
                 if (i == 0 && j == 0) {
-
+                    continue;
                 } else if (nx <= 0 || ny <= 0 || nx >= width || ny >= height) {
-
+                    continue;
                 } else if (world[nx][ny].equals(Tileset.FLOOR)) {
                     check = true;
                 }

@@ -9,7 +9,7 @@ public class Player {
     private TETile[][] world;
     private ArrayList<Room> rooms;
 
-    public Player(TETile world[][], ArrayList<Room> rooms) {
+    public Player(TETile[][] world, ArrayList<Room> rooms) {
         this.world = world;
         this.rooms = rooms;
         addPlayer();

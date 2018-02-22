@@ -1,8 +1,6 @@
 package byog.Core;
 
-import java.awt.*;
 import java.util.ArrayList;
-import java.util.Random;
 
 public class Room {
     // tuples are in the form (x, y)

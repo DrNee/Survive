@@ -2,18 +2,16 @@ package byog.Core;
 
 import byog.TileEngine.TERenderer;
 import byog.TileEngine.TETile;
-import byog.TileEngine.Tileset;
-import edu.princeton.cs.introcs.StdDraw;
+//import edu.princeton.cs.introcs.StdDraw;
 
-import java.awt.*;
-import java.awt.event.KeyEvent;
+import java.awt.Font;
 
 public class Game {
     TERenderer ter = new TERenderer();
     /* Feel free to change the width and height. */
-    private static final int WIDTH = 85;
-    private static final int HEIGHT = 50;
-    public static final Font generic = new Font("Times New Roman", Font.PLAIN, 30);
+    public static final int WIDTH = 85;
+    public static final int HEIGHT = 50;
+    private static final Font GENERIC = new Font("Times New Roman", Font.PLAIN, 30);
 
     /**
      * Method used for playing a fresh game. The game should start from the main menu.
@@ -52,7 +50,7 @@ public class Game {
      * @return the 2D TETile[][] representing the state of the world
      */
     public TETile[][] playWithInputString(String input) {
-        // TODO: Fill out this method to run the game using the input passed in,
+        // Fill out this method to run the game using the input passed in,
         // and return a 2D tile representation of the world that would have been
         // drawn if the same inputs had been given to playWithKeyboard().
         String seed = readInput(input);
@@ -60,30 +58,29 @@ public class Game {
         Map test = new Map(Long.parseLong(seed), WIDTH, HEIGHT);
         test.generate();
         TETile[][] finalWorldFrame = test.getWorld();
-        ter.renderFrame(finalWorldFrame);
+        //ter.renderFrame(finalWorldFrame);
         return finalWorldFrame;
     }
 
     // temporary for phase 1
-    public String readInput(String input) {
+    private String readInput(String input) {
         int l = input.length();
         String seed = "";
         if (!input.substring(l - 1, l).equalsIgnoreCase("s")
                 || !input.substring(0, 1).equalsIgnoreCase("n")) {
             System.exit(0);
-        }
-        else {
+        } else {
             seed = input.substring(1, l - 1);
         }
         return seed;
     }
 
-    public void input() {
-        switch (StdDraw.nextKeyTyped()) {
-            case 'w': ;
-            case 'a': ;
-            case 's': ;
-            case 'd': ;
-        }
-    }
+//    private void input() {
+//        switch (StdDraw.nextKeyTyped()) {
+//            case 'w': ;
+//            case 'a': ;
+//            case 's': ;
+//            case 'd': ;
+//        }
+//    }
 }
