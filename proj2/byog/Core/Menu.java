@@ -5,6 +5,7 @@ import edu.princeton.cs.introcs.StdDraw;
 import java.awt.*;
 
 public class Menu {
+    private static final Color bgColor = new Color(224, 236, 224);
     private int WIDTH, HEIGHT;
     protected Long seed;
 
@@ -24,8 +25,8 @@ public class Menu {
         StdDraw.setFont(font);
         StdDraw.setXscale(0, WIDTH);
         StdDraw.setYscale(0, HEIGHT);
-        StdDraw.clear(Color.black);
-        StdDraw.setPenColor(255, 255, 255);
+        StdDraw.clear(bgColor);
+        StdDraw.setPenColor(79, 175, 255);
         StdDraw.text(WIDTH/2, HEIGHT*3/4, "CS61B: THE GAME!");
         font = new Font("Times New Roman", Font.PLAIN, 30);
         StdDraw.setFont(font);
@@ -54,7 +55,7 @@ public class Menu {
     }
 
     public Long seedEnter() {
-        StdDraw.clear(Color.black);
+        StdDraw.clear(bgColor);
         StdDraw.text(WIDTH/2, HEIGHT/2, "Enter a seed");
         StdDraw.show();
         String temp = "";

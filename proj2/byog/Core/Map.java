@@ -191,7 +191,7 @@ public class Map {
                 int nx = x + i;
                 int ny = y + j;
 
-                if (i ==0 && j == 0) {
+                if (i == 0 && j == 0) {
 
                 } else if (nx <= 0 || ny <= 0 || nx >= width || ny >= height) {
 

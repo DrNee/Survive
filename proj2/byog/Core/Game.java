@@ -2,34 +2,40 @@ package byog.Core;
 
 import byog.TileEngine.TERenderer;
 import byog.TileEngine.TETile;
+import byog.TileEngine.Tileset;
 import edu.princeton.cs.introcs.StdDraw;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
 
 public class Game {
-    public TERenderer ter = new TERenderer();
+    TERenderer ter = new TERenderer();
     /* Feel free to change the width and height. */
-    public static final int WIDTH = 85;
-    public static final int HEIGHT = 50;
+    private static final int WIDTH = 85;
+    private static final int HEIGHT = 50;
     public static final Font generic = new Font("Times New Roman", Font.PLAIN, 30);
 
     /**
      * Method used for playing a fresh game. The game should start from the main menu.
      */
     public void playWithKeyboard() {
+        // initialize starting screen
         ter.initialize(WIDTH, HEIGHT);
         Menu menu = new Menu(WIDTH, HEIGHT);
         menu.run();
-        System.out.println(menu.seed);
+
+        // generate the map from the given seed
         Map test = new Map(menu.seed, WIDTH, HEIGHT);
         test.generate();
         TETile[][] finalWorldFrame = test.getWorld();
         ter.renderFrame(finalWorldFrame);
+
+        // add the player
+        Player player = new Player(finalWorldFrame, test.getRooms());
+
+        // continually move the world, add win condition later
         while (true) {
-            if (StdDraw.isKeyPressed(KeyEvent.VK_COLON) && StdDraw.isKeyPressed(KeyEvent.VK_Q)) {
-                System.exit(0);
-            }
+            ter.renderFrame(finalWorldFrame);
         }
     }
 
@@ -58,6 +64,7 @@ public class Game {
         return finalWorldFrame;
     }
 
+    // temporary for phase 1
     public String readInput(String input) {
         int l = input.length();
         String seed = "";
