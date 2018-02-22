@@ -4,18 +4,27 @@ import byog.TileEngine.TERenderer;
 import byog.TileEngine.TETile;
 import edu.princeton.cs.introcs.StdDraw;
 
+import java.awt.*;
 import java.awt.event.KeyEvent;
 
 public class Game {
-    TERenderer ter = new TERenderer();
+    public TERenderer ter = new TERenderer();
     /* Feel free to change the width and height. */
     public static final int WIDTH = 85;
     public static final int HEIGHT = 50;
+    public static final Font generic = new Font("Times New Roman", Font.PLAIN, 30);
 
     /**
      * Method used for playing a fresh game. The game should start from the main menu.
      */
     public void playWithKeyboard() {
+        ter.initialize(WIDTH, HEIGHT);
+        Menu menu = new Menu(WIDTH, HEIGHT);
+        menu.run();
+        Map test = new Map(menu.seed, WIDTH, HEIGHT);
+        test.generate();
+        TETile[][] finalWorldFrame = test.getWorld();
+        ter.renderFrame(finalWorldFrame);
         while (true) {
             if (StdDraw.isKeyPressed(KeyEvent.VK_COLON) && StdDraw.isKeyPressed(KeyEvent.VK_Q)) {
                 System.exit(0);
@@ -42,16 +51,10 @@ public class Game {
         String seed = readInput(input);
         ter.initialize(WIDTH, HEIGHT);
         Map test = new Map(Long.parseLong(seed), WIDTH, HEIGHT);
-        initial(test);
+        test.generate();
         TETile[][] finalWorldFrame = test.getWorld();
         ter.renderFrame(finalWorldFrame);
         return finalWorldFrame;
-    }
-
-    public void initial(Map map) {
-        map.fillEmpty();
-        map.addRooms(20);
-        map.addHallways();
     }
 
     public String readInput(String input) {
@@ -65,5 +68,14 @@ public class Game {
             seed = input.substring(1, l - 1);
         }
         return seed;
+    }
+
+    public void input() {
+        switch (StdDraw.nextKeyTyped()) {
+            case 'w': ;
+            case 'a': ;
+            case 's': ;
+            case 'd': ;
+        }
     }
 }
