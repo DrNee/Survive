@@ -1,26 +1,24 @@
 package byog.Core;
 
-import byog.TileEngine.TETile;
 import edu.princeton.cs.introcs.StdDraw;
 
 import java.awt.Font;
 import java.awt.Color;
+import java.io.Serializable;
 
-public class Menu {
+public class Menu implements Serializable{
     private static final Color BGCOLOR = new Color(224, 236, 224);
     private int WIDTH, HEIGHT;
     protected Long seed;
-    protected TETile[][] world;
 
     public void run() {
         mainMenu();
         menuInput();
     }
 
-    public Menu(int w, int h, TETile[][] world) {
+    public Menu(int w, int h) {
         WIDTH = w;
         HEIGHT = h;
-        this.world = world;
     }
 
     public void mainMenu() {
@@ -47,12 +45,13 @@ public class Menu {
                 switch (StdDraw.nextKeyTyped()) {
                     case 'n':
                         seed = seedEnter();
-                        Map test = new Map(seed, WIDTH, HEIGHT);
-                        test.generate();
-                        world = test.getWorld();
+                        Game.map = new Map(seed, WIDTH, HEIGHT);
+                        Game.map.generate();
+                        Game.world = Game.map.getWorld();
+                        Game.player = new Input();
                         return;
                     case 'l':
-                        world = loadData();
+                        loadData();
                         return;
                     case 'q':
                         System.exit(0);
@@ -82,7 +81,10 @@ public class Menu {
         return Long.parseLong(temp);
     }
 
-    public TETile[][] loadData() {
-        return Data.load();
+    public void loadData() {
+        Game.ter = Data.load("proj2/byog/SaveFiles/ter");
+        Game.map = Data.load("proj2/byog/SaveFiles/map");
+        Game.world = Data.load("proj2/byog/SaveFiles/world");
+        Game.player = Data.load("proj2/byog/SaveFiles/input");
     }
 }

@@ -6,31 +6,33 @@ import byog.TileEngine.TETile;
 
 import java.awt.Font;
 import java.io.IOException;
+import java.io.Serializable;
 
-public class Game {
-    TERenderer ter = new TERenderer();
+public class Game implements Serializable {
+    protected static TERenderer ter = new TERenderer();
     /* Feel free to change the width and height. */
     public static final int WIDTH = 85;
     public static final int HEIGHT = 50;
     private static final Font GENERIC = new Font("Times New Roman", Font.PLAIN, 30);
-    protected TETile[][] finalWorldFrame;
+    protected static TETile[][] world;
+    protected static Map map;
+    protected static Input player;
+
     /**
      * Method used for playing a fresh game. The game should start from the main menu.
      */
     public void playWithKeyboard() {
         // initialize main menu
-        Menu menu = new Menu(WIDTH, HEIGHT, finalWorldFrame);
+        Menu menu = new Menu(WIDTH, HEIGHT);
         menu.run();
 
         // generate the map from the given seed
         ter.initialize(WIDTH, HEIGHT);
-        finalWorldFrame = menu.world;
-        ter.renderFrame(finalWorldFrame);
+        ter.renderFrame(world);
 
         // add interactive stuff
 
         // add the player
-        Input player = new Input(ter, finalWorldFrame, Map.getRooms());
         player.run();
 
         // continually move the world, add win condition later
@@ -56,11 +58,11 @@ public class Game {
         ter.initialize(WIDTH, HEIGHT);
         Map test = new Map(Long.parseLong(seed), WIDTH, HEIGHT);
         test.generate();
-        finalWorldFrame = test.getWorld();
-        ter.renderFrame(finalWorldFrame);
-        Input player = new Input(ter, finalWorldFrame, test.getRooms());
+        world = test.getWorld();
+        ter.renderFrame(world);
+        player = new Input();
         player.run();
-        return finalWorldFrame;
+        return world;
     }
 
     // temporary for phase 1

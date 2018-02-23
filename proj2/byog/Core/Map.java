@@ -3,6 +3,7 @@ package byog.Core;
 import byog.TileEngine.TETile;
 import byog.TileEngine.Tileset;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -22,7 +23,7 @@ import java.util.Random;
 // Brute force method, fill every place with room and check if it intersects,
 //       fill until desired amount of rooms
 //       hallways can be implemented later to connect rooms
-public class Map {
+public class Map implements Serializable{
     private static final int MINSIZE = 7, MAXSIZE = 12;
     private static final int THRESH = 1; //threshold for intersection
 

@@ -1,18 +1,13 @@
 package byog.Core;
 
-import byog.TileEngine.TERenderer;
 import byog.TileEngine.TETile;
 import byog.TileEngine.Tileset;
 
-import java.util.ArrayList;
-
 import edu.princeton.cs.introcs.StdDraw;
 
-public class Input {
-    private TERenderer ter;
-    private TETile[][] world;
+import java.io.Serializable;
 
-    private ArrayList<Room> rooms;
+public class Input implements Serializable {
     private Tuple oldPos;
     private TETile oldTile, firstTile;
     private Tuple pos;
@@ -22,35 +17,33 @@ public class Input {
     public void run() {
         while (true) {
             input();
-            ter.renderFrame(world);
+            Game.ter.renderFrame(Game.world);
         }
     }
 
-    public Input(TERenderer ter, TETile[][] world, ArrayList<Room> rooms) {
-        this.ter = ter;
-        this.world = world;
-        this.rooms = rooms;
-        pos = oldPos = rooms.get(0).calcCenter();
-        firstTile = world[oldPos.x][oldPos.y];
-        world[pos.x][pos.y] = Tileset.PLAYER;
+    public Input() {
+        pos = oldPos = Map.getRooms().get(0).calcCenter();
+        firstTile = Game.world[oldPos.x][oldPos.y];
+        Game.world[pos.x][pos.y] = Tileset.PLAYER;
     }
 
     private void updatePlayer() {
-        world[oldPos.x][oldPos.y] = oldTile;
-        world[pos.x][pos.y] = Tileset.PLAYER;
+        Game.world[oldPos.x][oldPos.y] = oldTile;
+        Game.world[pos.x][pos.y] = Tileset.PLAYER;
     }
 
     // takes input
     private void input() {
         if (StdDraw.hasNextKeyTyped()) {
             switch (StdDraw.nextKeyTyped()) {
-                case ':': colonQ();
+                case ':': colonQ(); // check this line
                 case 'w': move(new Tuple(0, 1)); break;
                 case 'a': move(new Tuple(-1, 0)); break;
                 case 's': move(new Tuple(0, -1)); break;
                 case 'd': move(new Tuple(1, 0)); break;
             }
             updatePlayer();
+//            System.out.println(pos.toString());
             round++;
         }
     }
@@ -58,7 +51,7 @@ public class Input {
     // moves the player
     private void move(Tuple vec) {
         if (canMove(vec)) {
-            oldTile = world[oldPos.x][oldPos.y];
+            oldTile = Game.world[oldPos.x][oldPos.y];
             if (round == 0) {
                 oldTile = firstTile;
             }
@@ -68,11 +61,12 @@ public class Input {
     }
 
     // checks if can move in direction
+    // temporary fix, change this later probably...
     private boolean canMove(Tuple vec) {
         int newX = pos.x + vec.x;
         int newY = pos.y + vec.y;
-        return !world[newX][newY].equals(Tileset.WALL)
-                && world[newX][newY].equals(Tileset.FLOOR);
+        return Game.world[newX][newY].getCharacter() != Tileset.WALL.getCharacter()
+                && Game.world[newX][newY].getCharacter() == Tileset.FLOOR.getCharacter();
     }
 
     // checks the quit case
@@ -89,7 +83,14 @@ public class Input {
         }
     }
 
+    /**
+     * change to a folder for saving files later
+     * right now, saving does not alter the positions
+     */
     public void save() {
-        Data.save(world);
+        Data.save(Game.world, "proj2/byog/SaveFiles/world");
+        Data.save(this, "proj2/byog/SaveFiles/input");
+        Data.save(Game.ter, "proj2/byog/SaveFiles/ter");
+        Data.save(Game.map, "proj2/byog/SaveFiles/map");
     }
 }

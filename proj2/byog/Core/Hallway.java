@@ -1,6 +1,8 @@
 package byog.Core;
 
-public class Hallway {
+import java.io.Serializable;
+
+public class Hallway implements Serializable {
     private int p1, p2, lw, type;
 
     /**
