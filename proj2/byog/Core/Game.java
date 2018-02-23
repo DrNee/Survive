@@ -56,11 +56,13 @@ public class Game {
         // and return a 2D tile representation of the world that would have been
         // drawn if the same inputs had been given to playWithKeyboard().
         String seed = readInput(input);
-        //ter.initialize(WIDTH, HEIGHT);
+        ter.initialize(WIDTH, HEIGHT);
         Map test = new Map(Long.parseLong(seed), WIDTH, HEIGHT);
         test.generate();
         TETile[][] finalWorldFrame = test.getWorld();
-        //ter.renderFrame(finalWorldFrame);
+        ter.renderFrame(finalWorldFrame);
+        Player player = new Player(ter, finalWorldFrame, test.getRooms());
+        player.run();
         return finalWorldFrame;
     }
 
