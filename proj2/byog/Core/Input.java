@@ -45,10 +45,10 @@ public class Input {
         if (StdDraw.hasNextKeyTyped()) {
             switch (StdDraw.nextKeyTyped()) {
                 case ':': colonQ();
-                case 'w': move(0, new Tuple(0, 1)); break;
-                case 'a': move(1, new Tuple(-1, 0)); break;
-                case 's': move(2, new Tuple(0, -1)); break;
-                case 'd': move(3, new Tuple(1, 0)); break;
+                case 'w': move(new Tuple(0, 1)); break;
+                case 'a': move(new Tuple(-1, 0)); break;
+                case 's': move(new Tuple(0, -1)); break;
+                case 'd': move(new Tuple(1, 0)); break;
             }
             updatePlayer();
             round++;
@@ -56,8 +56,8 @@ public class Input {
     }
 
     // moves the player
-    private void move(int dir, Tuple vec) {
-        if (canMove(dir, vec)) {
+    private void move(Tuple vec) {
+        if (canMove(vec)) {
             oldTile = world[oldPos.x][oldPos.y];
             if (round == 0) {
                 oldTile = firstTile;
@@ -68,7 +68,7 @@ public class Input {
     }
 
     // checks if can move in direction
-    private boolean canMove(int dir, Tuple vec) {
+    private boolean canMove(Tuple vec) {
         int newX = pos.x + vec.x;
         int newY = pos.y + vec.y;
         return !world[newX][newY].equals(Tileset.WALL)
@@ -90,6 +90,6 @@ public class Input {
     }
 
     public void save() {
-
+        Data.save(world);
     }
 }

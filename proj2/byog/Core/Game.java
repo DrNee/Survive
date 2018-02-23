@@ -5,6 +5,7 @@ import byog.TileEngine.TETile;
 //import edu.princeton.cs.introcs.StdDraw;
 
 import java.awt.Font;
+import java.io.IOException;
 
 public class Game {
     TERenderer ter = new TERenderer();
@@ -12,31 +13,27 @@ public class Game {
     public static final int WIDTH = 85;
     public static final int HEIGHT = 50;
     private static final Font GENERIC = new Font("Times New Roman", Font.PLAIN, 30);
-
+    protected TETile[][] finalWorldFrame;
     /**
      * Method used for playing a fresh game. The game should start from the main menu.
      */
     public void playWithKeyboard() {
         // initialize main menu
-        Menu menu = new Menu(WIDTH, HEIGHT);
+        Menu menu = new Menu(WIDTH, HEIGHT, finalWorldFrame);
         menu.run();
 
         // generate the map from the given seed
         ter.initialize(WIDTH, HEIGHT);
-        Map test = new Map(menu.seed, WIDTH, HEIGHT);
-        test.generate();
-        TETile[][] finalWorldFrame = test.getWorld();
+        finalWorldFrame = menu.world;
         ter.renderFrame(finalWorldFrame);
 
         // add interactive stuff
 
         // add the player
-        Input player = new Input(ter, finalWorldFrame, test.getRooms());
+        Input player = new Input(ter, finalWorldFrame, Map.getRooms());
         player.run();
+
         // continually move the world, add win condition later
-        while (true) {
-            ter.renderFrame(finalWorldFrame);
-        }
     }
 
     /**
@@ -59,7 +56,7 @@ public class Game {
         ter.initialize(WIDTH, HEIGHT);
         Map test = new Map(Long.parseLong(seed), WIDTH, HEIGHT);
         test.generate();
-        TETile[][] finalWorldFrame = test.getWorld();
+        finalWorldFrame = test.getWorld();
         ter.renderFrame(finalWorldFrame);
         Input player = new Input(ter, finalWorldFrame, test.getRooms());
         player.run();

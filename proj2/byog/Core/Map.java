@@ -29,7 +29,7 @@ public class Map {
     private Random random;
     private Long seed;
     private int width, height;
-    private ArrayList<Room> rooms;
+    private static ArrayList<Room> rooms;
     private TETile[][] world;
 
     public Map(Long seed, int width, int height) {
@@ -239,7 +239,7 @@ public class Map {
         return world;
     }
 
-    public ArrayList<Room> getRooms() {
+    public static ArrayList<Room> getRooms() {
         return rooms;
     }
 }
