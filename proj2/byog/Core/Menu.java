@@ -22,14 +22,14 @@ public class Menu {
 
     public void mainMenu() {
         StdDraw.setCanvasSize(WIDTH * 16, HEIGHT * 16);
-        Font font = new Font("Courier New", Font.BOLD, 80);
+        Font font = new Font("Comic Sans", Font.BOLD, 80);
         StdDraw.setFont(font);
         StdDraw.setXscale(0, WIDTH);
         StdDraw.setYscale(0, HEIGHT);
         StdDraw.clear(BGCOLOR);
         StdDraw.setPenColor(79, 175, 255);
         StdDraw.text(WIDTH / 2, HEIGHT * 3 / 4, "CS61B: THE GAME!");
-        font = new Font("Times New Roman", Font.PLAIN, 30);
+        font = new Font("Comic Sans", Font.PLAIN, 30);
         StdDraw.setFont(font);
         StdDraw.text(WIDTH / 2, HEIGHT / 2, "New Game (N)");
         StdDraw.text(WIDTH / 2, HEIGHT / 2 - 2, "Load Game (L)");

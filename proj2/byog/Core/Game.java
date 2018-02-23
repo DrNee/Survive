@@ -22,15 +22,17 @@ public class Game {
         menu.run();
 
         // generate the map from the given seed
-        Map test = new Map(menu.seed, WIDTH, HEIGHT);
         ter.initialize(WIDTH, HEIGHT);
+        Map test = new Map(menu.seed, WIDTH, HEIGHT);
         test.generate();
         TETile[][] finalWorldFrame = test.getWorld();
         ter.renderFrame(finalWorldFrame);
 
-        // add the player
-        Player player = new Player(finalWorldFrame, test.getRooms());
+        // add interactive stuff
 
+        // add the player
+        Player player = new Player(ter, finalWorldFrame, test.getRooms());
+        player.run();
         // continually move the world, add win condition later
         while (true) {
             ter.renderFrame(finalWorldFrame);
@@ -74,13 +76,4 @@ public class Game {
         }
         return seed;
     }
-
-//    private void input() {
-//        switch (StdDraw.nextKeyTyped()) {
-//            case 'w': ;
-//            case 'a': ;
-//            case 's': ;
-//            case 'd': ;
-//        }
-//    }
 }

@@ -1,21 +1,69 @@
 package byog.Core;
 
+import byog.TileEngine.TERenderer;
 import byog.TileEngine.TETile;
 import byog.TileEngine.Tileset;
 
 import java.util.ArrayList;
 
-public class Player {
-    private TETile[][] world;
-    private ArrayList<Room> rooms;
+import edu.princeton.cs.introcs.StdDraw;
 
-    public Player(TETile[][] world, ArrayList<Room> rooms) {
-        this.world = world;
-        this.rooms = rooms;
-        addPlayer();
+public class Player {
+    private TERenderer ter;
+    private TETile[][] world;
+
+    private ArrayList<Room> rooms;
+    private Tuple oldPos;
+    private TETile oldTile;
+    private Tuple pos;
+
+    public void run() {
+        while (true) {
+            input();
+            ter.renderFrame(world);
+        }
     }
 
-    public void addPlayer() {
-        world[rooms.get(0).calcCenter().x][rooms.get(0).calcCenter().y] = Tileset.PLAYER;
+    public Player(TERenderer ter, TETile[][] world, ArrayList<Room> rooms) {
+        this.ter = ter;
+        this.world = world;
+        this.rooms = rooms;
+        pos = oldPos = rooms.get(0).calcCenter();
+        oldTile = world[oldPos.x][oldPos.y];
+    }
+
+    private void updatePlayer() {
+        world[oldPos.x][oldPos.y] = oldTile;
+        world[pos.x][pos.y] = Tileset.PLAYER;
+    }
+
+    // takes input
+    private void input() {
+        if (StdDraw.hasNextKeyTyped()) {
+            switch (StdDraw.nextKeyTyped()) {
+                case 'w': move(0, new Tuple(0, 1)); break;
+                case 'a': move(1, new Tuple(-1, 0)); break;
+                case 's': move(2, new Tuple(0, -1)); break;
+                case 'd': move(3, new Tuple(1, 0)); break;
+            }
+            updatePlayer();
+        }
+    }
+
+    // moves the player
+    private void move(int dir, Tuple vec) {
+        if (canMove(dir, vec)) {
+            oldTile = world[oldPos.x][oldPos.y];
+            oldPos = pos;
+            pos = new Tuple(pos.x + vec.x, pos.y + vec.y);
+        }
+    }
+
+    // checks if can move in direction
+    private boolean canMove(int dir, Tuple vec) {
+        int newX = pos.x + vec.x;
+        int newY = pos.y + vec.y;
+        return !world[newX][newY].equals(Tileset.WALL)
+                && world[newX][newY].equals(Tileset.FLOOR);
     }
 }
