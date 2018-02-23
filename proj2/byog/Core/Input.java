@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 import edu.princeton.cs.introcs.StdDraw;
 
-public class Player {
+public class Input {
     private TERenderer ter;
     private TETile[][] world;
 
@@ -26,7 +26,7 @@ public class Player {
         }
     }
 
-    public Player(TERenderer ter, TETile[][] world, ArrayList<Room> rooms) {
+    public Input(TERenderer ter, TETile[][] world, ArrayList<Room> rooms) {
         this.ter = ter;
         this.world = world;
         this.rooms = rooms;

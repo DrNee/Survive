@@ -31,7 +31,7 @@ public class Game {
         // add interactive stuff
 
         // add the player
-        Player player = new Player(ter, finalWorldFrame, test.getRooms());
+        Input player = new Input(ter, finalWorldFrame, test.getRooms());
         player.run();
         // continually move the world, add win condition later
         while (true) {
@@ -61,7 +61,7 @@ public class Game {
         test.generate();
         TETile[][] finalWorldFrame = test.getWorld();
         ter.renderFrame(finalWorldFrame);
-        Player player = new Player(ter, finalWorldFrame, test.getRooms());
+        Input player = new Input(ter, finalWorldFrame, test.getRooms());
         player.run();
         return finalWorldFrame;
     }
