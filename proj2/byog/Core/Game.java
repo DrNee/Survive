@@ -5,8 +5,9 @@ import byog.TileEngine.TETile;
 //import edu.princeton.cs.introcs.StdDraw;
 
 import java.awt.Font;
-import java.io.IOException;
 import java.io.Serializable;
+import java.util.LinkedList;
+
 
 public class Game implements Serializable {
     protected static TERenderer ter = new TERenderer();
@@ -17,6 +18,7 @@ public class Game implements Serializable {
     protected static TETile[][] world;
     protected static Map map;
     protected static Input player;
+    protected static LinkedList<Character> a = new LinkedList<>();
 
     /**
      * Method used for playing a fresh game. The game should start from the main menu.
@@ -26,13 +28,13 @@ public class Game implements Serializable {
         Menu menu = new Menu(WIDTH, HEIGHT);
         menu.run();
 
-        // generate the map from the given seed
-        ter.initialize(WIDTH, HEIGHT);
+        // initialize the map from the given seed
+        ter.initialize(WIDTH, HEIGHT, 0, 0);
         ter.renderFrame(world);
 
         // add interactive stuff
 
-        // add the player
+        // run the player
         player.run();
 
         // continually move the world, add win condition later
@@ -54,27 +56,53 @@ public class Game implements Serializable {
         // Fill out this method to run the game using the input passed in,
         // and return a 2D tile representation of the world that would have been
         // drawn if the same inputs had been given to playWithKeyboard().
-        String seed = readInput(input);
-        ter.initialize(WIDTH, HEIGHT);
-        Map test = new Map(Long.parseLong(seed), WIDTH, HEIGHT);
-        test.generate();
-        world = test.getWorld();
-        ter.renderFrame(world);
-        player = new Input();
-        player.run();
+        String actions = readInput(input);
+        ter.initialize(WIDTH, HEIGHT, 0, -1);
+        if (!actions.equals("")) {
+            Map test = new Map(Long.parseLong(actions), WIDTH, HEIGHT);
+            test.generate();
+            world = test.getWorld();
+            player = new Input();
+            ter.renderFrame(world);
+            player.run(actions);
+        } else {
+            ter.renderFrame(world);
+            player.run(actions);
+        }
         return world;
     }
 
     // temporary for phase 1
+
+    /**
+     * have to handle inputs other than n # s
+     * also cannot move after loading data
+     * fix edge cases of not getting last letter
+     */
     private String readInput(String input) {
         int l = input.length();
-        String seed = "";
-        if (!input.substring(l - 1, l).equalsIgnoreCase("s")
-                || !input.substring(0, 1).equalsIgnoreCase("n")) {
-            System.exit(0);
-        } else {
-            seed = input.substring(1, l - 1);
+        String actions = "";
+        for (int i = 0; i < l - 1; i++) {
+            if (input.substring(0, 1).equalsIgnoreCase("n")) {
+                if (Character.isDigit(input.charAt(i))) {
+                    actions += input.charAt(i);
+                }
+                if (input.substring(i, i + 1).equalsIgnoreCase("s")) {
+                    for (int j = i; j < l; j++) {
+                        a.addLast(input.charAt(j));
+                    }
+                    break;
+                }
+            } else if (input.substring(0, 1).equalsIgnoreCase("l")) {
+                Game.ter = Data.load("proj2/byog/SaveFiles/ter");
+                Game.map = Data.load("proj2/byog/SaveFiles/map");
+                Game.world = Data.load("proj2/byog/SaveFiles/world");
+                Game.player = Data.load("proj2/byog/SaveFiles/input");
+                a.addLast(input.charAt(i));
+            } else {
+                System.exit(0);
+            }
         }
-        return seed;
+        return actions;
     }
 }

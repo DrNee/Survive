@@ -191,7 +191,17 @@ public class TETile implements Serializable {
         return copy;
     }
 
-    public char getCharacter() {
-        return character;
+    public boolean equals(Object x) {
+        if (this == x) {
+            return true;
+        }
+        if (x == null) {
+            return false;
+        }
+        if (this.getClass() != x.getClass()) {
+            return false;
+        }
+        TETile that = (TETile) x;
+        return this.character == that.character;
     }
 }

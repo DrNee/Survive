@@ -5,6 +5,7 @@ import byog.TileEngine.Tileset;
 
 import edu.princeton.cs.introcs.StdDraw;
 
+import java.awt.*;
 import java.io.Serializable;
 
 public class Input implements Serializable {
@@ -14,9 +15,20 @@ public class Input implements Serializable {
 
     private int round = 0;
 
+    // run keyboard game
     public void run() {
         while (true) {
+            mouseRead();
             input();
+            Game.ter.renderFrame(Game.world);
+        }
+    }
+
+    public void run(String input) {
+        Game.a.removeFirst();
+        while (Game.a.size() > 0) {
+            mouseRead();
+            processStringInput();
             Game.ter.renderFrame(Game.world);
         }
     }
@@ -32,18 +44,23 @@ public class Input implements Serializable {
         Game.world[pos.x][pos.y] = Tileset.PLAYER;
     }
 
+    @SuppressWarnings("Duplicates")
     // takes input
+    // Using linked list allows for :Q to work more efficiently, could add close to 0 complexity as
+    // it is constant time to access the first values;
     private void input() {
         if (StdDraw.hasNextKeyTyped()) {
-            switch (StdDraw.nextKeyTyped()) {
-                case ':': colonQ(); // check this line
+            Game.a.add(StdDraw.nextKeyTyped());
+            if (Game.a.peekFirst() == ':') {
+                colonQ();
+            }
+            switch (Game.a.removeFirst()) {
                 case 'w': move(new Tuple(0, 1)); break;
                 case 'a': move(new Tuple(-1, 0)); break;
                 case 's': move(new Tuple(0, -1)); break;
                 case 'd': move(new Tuple(1, 0)); break;
             }
             updatePlayer();
-//            System.out.println(pos.toString());
             round++;
         }
     }
@@ -61,19 +78,20 @@ public class Input implements Serializable {
     }
 
     // checks if can move in direction
-    // temporary fix, change this later probably...
     private boolean canMove(Tuple vec) {
         int newX = pos.x + vec.x;
         int newY = pos.y + vec.y;
-        return Game.world[newX][newY].getCharacter() != Tileset.WALL.getCharacter()
-                && Game.world[newX][newY].getCharacter() == Tileset.FLOOR.getCharacter();
+        return !Game.world[newX][newY].equals(Tileset.WALL)
+                && Game.world[newX][newY].equals(Tileset.FLOOR);
     }
 
     // checks the quit case
     public void colonQ() {
+        Game.a.removeFirst();
         while (true) {
             if (StdDraw.hasNextKeyTyped()) {
-                if (StdDraw.nextKeyTyped() == 'q') {
+                Game.a.add(StdDraw.nextKeyTyped());
+                if (Game.a.peekFirst() == 'q') {
                     save();
                     System.exit(0);
                 } else {
@@ -83,10 +101,66 @@ public class Input implements Serializable {
         }
     }
 
+    @SuppressWarnings("Duplicates")
+    public void processStringInput() {
+        if (Game.a.peekFirst() == ':') {
+            colonQString();
+        }
+        switch (Game.a.removeFirst()) {
+            case 'w': move(new Tuple(0, 1)); break;
+            case 'a': move(new Tuple(-1, 0)); break;
+            case 's': move(new Tuple(0, -1)); break;
+            case 'd': move(new Tuple(1, 0)); break;
+        }
+        updatePlayer();
+        round++;
+    }
+
+    @SuppressWarnings("Duplicates")
+    // checks the quit case
+    // not hitting the "q" case
+    public void colonQString() {
+        Game.a.removeFirst();
+        if (Game.a.peekFirst() == 'q') {
+            save();
+            System.exit(0);
+        }
+    }
+
+    // find position of mouse and check what tile it is
     /**
-     * change to a folder for saving files later
-     * right now, saving does not alter the positions
+     * theres an error right now when it goes out of bounds sometimes
+     * error occurs when moving up to exit (the top bar)
      */
+    public void mouseRead() {
+        int x = (int) Math.floor(StdDraw.mouseX());
+        int y = (int) Math.floor(StdDraw.mouseY());
+        displayInfo(tileType(Game.world[x][y]));
+    }
+
+    // checks the tile type
+    public String tileType(TETile x) {
+        if (x.equals(Tileset.PLAYER)) {
+            return "player";
+        } else if (x.equals(Tileset.FLOOR)) {
+            return "floor";
+        } else if (x.equals(Tileset.WALL)) {
+            return "wall";
+        } else if (x.equals(Tileset.NOTHING)) {
+            return "nothing";
+        }
+        return "";
+    }
+
+    // add bar later, for now, displays the tile on the top left
+    public void displayInfo(String x) {
+        Font font = new Font("Comic Sans", Font.BOLD, 30);
+        StdDraw.setPenColor(Color.white);
+        StdDraw.textLeft(1, Game.HEIGHT - 1, "Current tile: " + x);
+        StdDraw.show();
+    }
+
+    // saves the current game state
     public void save() {
         Data.save(Game.world, "proj2/byog/SaveFiles/world");
         Data.save(this, "proj2/byog/SaveFiles/input");

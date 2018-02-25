@@ -45,10 +45,7 @@ public class Menu implements Serializable{
                 switch (StdDraw.nextKeyTyped()) {
                     case 'n':
                         seed = seedEnter();
-                        Game.map = new Map(seed, WIDTH, HEIGHT);
-                        Game.map.generate();
-                        Game.world = Game.map.getWorld();
-                        Game.player = new Input();
+                        startNewGame();
                         return;
                     case 'l':
                         loadData();
@@ -81,6 +78,15 @@ public class Menu implements Serializable{
         return Long.parseLong(temp);
     }
 
+    // starts a fresh game
+    public void startNewGame() {
+        Game.map = new Map(seed, WIDTH, HEIGHT);
+        Game.map.generate();
+        Game.world = Game.map.getWorld();
+        Game.player = new Input();
+    }
+
+    // loads old game data
     public void loadData() {
         Game.ter = Data.load("proj2/byog/SaveFiles/ter");
         Game.map = Data.load("proj2/byog/SaveFiles/map");
