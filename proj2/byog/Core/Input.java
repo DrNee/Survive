@@ -118,7 +118,7 @@ public class Input implements Serializable {
 
     @SuppressWarnings("Duplicates")
     // checks the quit case
-    // not hitting the "q" case
+    // l:q not working
     public void colonQString() {
         Game.a.removeFirst();
         if (Game.a.peekFirst() == 'q') {

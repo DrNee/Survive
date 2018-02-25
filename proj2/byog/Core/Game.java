@@ -82,26 +82,28 @@ public class Game implements Serializable {
     private String readInput(String input) {
         int l = input.length();
         String actions = "";
-        for (int i = 0; i < l - 1; i++) {
-            if (input.substring(0, 1).equalsIgnoreCase("n")) {
+        if (input.substring(0, 1).equalsIgnoreCase("n")) {
+            for (int i = 0; i < l - 1; i++) {
                 if (Character.isDigit(input.charAt(i))) {
                     actions += input.charAt(i);
                 }
                 if (input.substring(i, i + 1).equalsIgnoreCase("s")) {
                     for (int j = i; j < l; j++) {
-                        a.addLast(input.charAt(j));
+                        a.addLast(Character.toLowerCase(input.charAt(j)));
                     }
                     break;
                 }
-            } else if (input.substring(0, 1).equalsIgnoreCase("l")) {
-                Game.ter = Data.load("proj2/byog/SaveFiles/ter");
-                Game.map = Data.load("proj2/byog/SaveFiles/map");
-                Game.world = Data.load("proj2/byog/SaveFiles/world");
-                Game.player = Data.load("proj2/byog/SaveFiles/input");
-                a.addLast(input.charAt(i));
-            } else {
-                System.exit(0);
             }
+        } else if (input.substring(0, 1).equalsIgnoreCase("l")) {
+            Game.ter = Data.load("proj2/byog/SaveFiles/ter");
+            Game.map = Data.load("proj2/byog/SaveFiles/map");
+            Game.world = Data.load("proj2/byog/SaveFiles/world");
+            Game.player = Data.load("proj2/byog/SaveFiles/input");
+            for (int i = 0; i < l; i++) {
+                a.addLast(Character.toLowerCase(input.charAt(i)));
+            }
+        } else {
+            System.exit(0);
         }
         return actions;
     }
