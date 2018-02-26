@@ -2,9 +2,7 @@ package byog.Core;
 
 import byog.TileEngine.TERenderer;
 import byog.TileEngine.TETile;
-//import edu.princeton.cs.introcs.StdDraw;
 
-import java.awt.Font;
 import java.io.Serializable;
 import java.util.LinkedList;
 
@@ -12,9 +10,7 @@ import java.util.LinkedList;
 public class Game implements Serializable {
     protected static TERenderer ter = new TERenderer();
     /* Feel free to change the width and height. */
-    public static final int WIDTH = 85;
-    public static final int HEIGHT = 50;
-    private static final Font GENERIC = new Font("Times New Roman", Font.PLAIN, 30);
+    public static final int WIDTH = 85, HEIGHT = 50;
     protected static TETile[][] world;
     protected static Map map;
     protected static Input player;
@@ -99,7 +95,7 @@ public class Game implements Serializable {
             Game.map = Data.load("proj2/byog/SaveFiles/map");
             Game.world = Data.load("proj2/byog/SaveFiles/world");
             Game.player = Data.load("proj2/byog/SaveFiles/input");
-            for (int i = 0; i < l; i++) {
+            for (int i = 1; i < l; i++) {
                 a.addLast(Character.toLowerCase(input.charAt(i)));
             }
         } else {

@@ -3,9 +3,12 @@
   <component name="ChangeListManager">
     <list default="true" id="1df8c0e3-6593-4336-a984-8b5115602764" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/out/production/sp18-proj2-abg-atr/byog/Core/Map.class" afterPath="$PROJECT_DIR$/out/production/sp18-proj2-abg-atr/byog/Core/Map.class" />
+      <change beforePath="$PROJECT_DIR$/out/production/sp18-proj2-abg-atr/byog/Core/Input.class" afterPath="$PROJECT_DIR$/out/production/sp18-proj2-abg-atr/byog/Core/Input.class" />
+      <change beforePath="$PROJECT_DIR$/out/production/sp18-proj2-abg-atr/byog/SaveFiles/input" afterPath="$PROJECT_DIR$/out/production/sp18-proj2-abg-atr/byog/SaveFiles/input" />
+      <change beforePath="$PROJECT_DIR$/out/production/sp18-proj2-abg-atr/byog/SaveFiles/map" afterPath="$PROJECT_DIR$/out/production/sp18-proj2-abg-atr/byog/SaveFiles/map" />
+      <change beforePath="$PROJECT_DIR$/out/production/sp18-proj2-abg-atr/byog/SaveFiles/world" afterPath="$PROJECT_DIR$/out/production/sp18-proj2-abg-atr/byog/SaveFiles/world" />
+      <change beforePath="$PROJECT_DIR$/proj2/byog/Core/Game.java" afterPath="$PROJECT_DIR$/proj2/byog/Core/Game.java" />
       <change beforePath="$PROJECT_DIR$/proj2/byog/Core/Input.java" afterPath="$PROJECT_DIR$/proj2/byog/Core/Input.java" />
-      <change beforePath="$PROJECT_DIR$/proj2/byog/Core/Map.java" afterPath="$PROJECT_DIR$/proj2/byog/Core/Map.java" />
       <change beforePath="$PROJECT_DIR$/proj2/byog/SaveFiles/input" afterPath="$PROJECT_DIR$/proj2/byog/SaveFiles/input" />
       <change beforePath="$PROJECT_DIR$/proj2/byog/SaveFiles/map" afterPath="$PROJECT_DIR$/proj2/byog/SaveFiles/map" />
       <change beforePath="$PROJECT_DIR$/proj2/byog/SaveFiles/ter" afterPath="$PROJECT_DIR$/proj2/byog/SaveFiles/ter" />
@@ -24,7 +27,7 @@
       <file leaf-file-name="Menu.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/proj2/byog/Core/Menu.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2407">
+            <state relative-caret-position="460">
               <caret line="87" column="0" lean-forward="false" selection-start-line="87" selection-start-column="0" selection-end-line="87" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -33,26 +36,23 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Input.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Input.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/proj2/byog/Core/Input.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="174">
-              <caret line="140" column="5" lean-forward="true" selection-start-line="140" selection-start-column="5" selection-end-line="140" selection-end-column="5" />
+            <state relative-caret-position="2026">
+              <caret line="154" column="0" lean-forward="true" selection-start-line="154" selection-start-column="0" selection-end-line="154" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#1078#1109#0" expanded="true" />
-                <element signature="e#2862#2893#0" expanded="true" />
-                <element signature="e#3324#3355#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Game.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Game.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/proj2/byog/Core/Game.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2146">
-              <caret line="80" column="7" lean-forward="false" selection-start-line="80" selection-start-column="7" selection-end-line="80" selection-end-column="7" />
+            <state relative-caret-position="174">
+              <caret line="12" column="52" lean-forward="true" selection-start-line="12" selection-start-column="52" selection-end-line="12" selection-end-column="52" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -96,9 +96,9 @@
         <option value="$PROJECT_DIR$/proj2/byog/Core/Menu.java" />
         <option value="$PROJECT_DIR$/proj2/byog/TileEngine/TETile.java" />
         <option value="$PROJECT_DIR$/proj2/byog/TileEngine/Tileset.java" />
-        <option value="$PROJECT_DIR$/proj2/byog/Core/Game.java" />
         <option value="$PROJECT_DIR$/proj2/byog/Core/Map.java" />
         <option value="$PROJECT_DIR$/proj2/byog/Core/Input.java" />
+        <option value="$PROJECT_DIR$/proj2/byog/Core/Game.java" />
       </list>
     </option>
   </component>
@@ -320,12 +320,12 @@
       <workItem from="1519414427367" duration="15506000" />
       <workItem from="1519468696089" duration="211000" />
       <workItem from="1519520341393" duration="6981000" />
-      <workItem from="1519638887425" duration="667000" />
+      <workItem from="1519638887425" duration="1530000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="115538000" />
+    <option name="totallyTimeSpent" value="116401000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1096" extended-state="6" />
@@ -339,7 +339,7 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.36212277" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.36212277" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Style Checker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32975295" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32882413" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
@@ -825,16 +825,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/proj2/byog/Core/Game.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2146">
-          <caret line="80" column="7" lean-forward="false" selection-start-line="80" selection-start-column="7" selection-end-line="80" selection-end-column="7" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/proj2/byog/TileEngine/TERenderer.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1566">
@@ -851,9 +841,19 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/proj2/byog/Core/Input.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2026">
+          <caret line="154" column="0" lean-forward="true" selection-start-line="154" selection-start-column="0" selection-end-line="154" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/proj2/byog/Core/Menu.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2407">
+        <state relative-caret-position="460">
           <caret line="87" column="0" lean-forward="false" selection-start-line="87" selection-start-column="0" selection-end-line="87" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -861,15 +861,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/proj2/byog/Core/Input.java">
+    <entry file="file://$PROJECT_DIR$/proj2/byog/Core/Game.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="174">
-          <caret line="140" column="5" lean-forward="true" selection-start-line="140" selection-start-column="5" selection-end-line="140" selection-end-column="5" />
+          <caret line="12" column="52" lean-forward="true" selection-start-line="12" selection-start-column="52" selection-end-line="12" selection-end-column="52" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1078#1109#0" expanded="true" />
-            <element signature="e#2862#2893#0" expanded="true" />
-            <element signature="e#3324#3355#0" expanded="true" />
           </folding>
         </state>
       </provider>

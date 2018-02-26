@@ -44,7 +44,6 @@ public class Input implements Serializable {
         Game.world[pos.x][pos.y] = Tileset.PLAYER;
     }
 
-    @SuppressWarnings("Duplicates")
     // takes input
     // Using linked list allows for :Q to work more efficiently, could add close to 0 complexity as
     // it is constant time to access the first values;
@@ -54,12 +53,7 @@ public class Input implements Serializable {
             if (Game.a.peekFirst() == ':') {
                 colonQ();
             }
-            switch (Game.a.removeFirst()) {
-                case 'w': move(new Tuple(0, 1)); break;
-                case 'a': move(new Tuple(-1, 0)); break;
-                case 's': move(new Tuple(0, -1)); break;
-                case 'd': move(new Tuple(1, 0)); break;
-            }
+            letterCheck(Game.a.removeFirst());
             updatePlayer();
             round++;
         }
@@ -101,29 +95,30 @@ public class Input implements Serializable {
         }
     }
 
-    @SuppressWarnings("Duplicates")
     public void processStringInput() {
         if (Game.a.peekFirst() == ':') {
             colonQString();
         }
-        switch (Game.a.removeFirst()) {
-            case 'w': move(new Tuple(0, 1)); break;
-            case 'a': move(new Tuple(-1, 0)); break;
-            case 's': move(new Tuple(0, -1)); break;
-            case 'd': move(new Tuple(1, 0)); break;
-        }
+        letterCheck(Game.a.removeFirst());
         updatePlayer();
         round++;
     }
 
-    @SuppressWarnings("Duplicates")
     // checks the quit case
-    // l:q not working
     public void colonQString() {
         Game.a.removeFirst();
         if (Game.a.peekFirst() == 'q') {
             save();
             System.exit(0);
+        }
+    }
+
+    public void letterCheck(char letter) {
+        switch (letter) {
+            case 'w': move(new Tuple(0, 1)); break;
+            case 'a': move(new Tuple(-1, 0)); break;
+            case 's': move(new Tuple(0, -1)); break;
+            case 'd': move(new Tuple(1, 0)); break;
         }
     }
 
