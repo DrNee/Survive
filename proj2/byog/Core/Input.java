@@ -128,14 +128,12 @@ public class Input implements Serializable {
     }
 
     // find position of mouse and check what tile it is
-    /**
-     * theres an error right now when it goes out of bounds sometimes
-     * error occurs when moving up to exit (the top bar)
-     */
     public void mouseRead() {
         int x = (int) Math.floor(StdDraw.mouseX());
         int y = (int) Math.floor(StdDraw.mouseY());
-        displayInfo(tileType(Game.world[x][y]));
+        if (y < Game.HEIGHT) {
+            displayInfo(tileType(Game.world[x][y]));
+        }
     }
 
     // checks the tile type

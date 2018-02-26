@@ -7,22 +7,12 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 
-// can try to connect rooms by putting a random opening on a room and connecting it
-// to another room with the shortest distance (can create method)
-
-// alternative connecting rooms by finding centers, connecting centers
-// to fix method above // to be able to connect different rooms everytime,
-// combine one room at a time, move onto the next room and find the next closest
-// to that one and connect those two, eventually, we will reach the final
-
-// another alt, have rooms and just add a hallway randomly because we know
-//      placement of rooms, can do random length, min just has to be the distance to the room
-
-// NEW IDEA: WHAT IF WE RUN CELLULAR AUTOMATA FIRST AND  THEN PLACE ROOMS ON TOP
-// WILL THIS ALREADY CREATE HALLWAYS?
-// Brute force method, fill every place with room and check if it intersects,
-//       fill until desired amount of rooms
-//       hallways can be implemented later to connect rooms
+/**
+ * Map generation algorithim
+ * Our idea was to randomly place rooms and then connect hallways using the center
+ * of each room. Once a room has been connected, the room it connected to will connect
+ * to the next closest room.
+ */
 public class Map implements Serializable{
     private static final int MINSIZE = 7, MAXSIZE = 12;
     private static final int THRESH = 1; //threshold for intersection
