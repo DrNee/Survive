@@ -5,7 +5,7 @@ import byog.TileEngine.TETile;
 
 import java.io.File;
 import java.io.Serializable;
-//import java.util.ArrayList;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Random;
 
@@ -18,7 +18,7 @@ public class Game implements Serializable {
     protected static TETile[][] world;
     protected static Map map;
     protected static Player player;
-//    protected static ArrayList<Enemy> enemies = new ArrayList<>();
+    protected static ArrayList<Enemy> enemies = new ArrayList<>();
     protected static LinkedList<Character> a = new LinkedList<>();
 
     /**
@@ -58,23 +58,21 @@ public class Game implements Serializable {
         // and return a 2D tile representation of the world that would have been
         // drawn if the same inputs had been given to playWithKeyboard().
         String actions = readInput(input);
-//        ter.initialize(WIDTH, HEIGHT, 0, -1);
+        ter.initialize(WIDTH, HEIGHT, 0, 0);
         if (!actions.equals("")) {
             Map test = new Map(Long.parseLong(actions), WIDTH, HEIGHT);
             test.generate();
             world = test.getWorld();
             player = new Player();
-//            ter.renderFrame(world);
-//            Enemy.spawn();
+            ter.renderFrame(world);
+            Enemy.spawn();
             player.run(actions);
         } else {
-//            ter.renderFrame(world);
+            ter.renderFrame(world);
             player.run(actions);
         }
         return world;
     }
-
-    // temporary for phase 1
 
     /**
      * have to handle inputs other than n # s
@@ -102,7 +100,7 @@ public class Game implements Serializable {
                 Game.map = Data.load("map.txt");
                 Game.world = Data.load("world.txt");
                 Game.player = Data.load("input.txt");
-//            Game.enemies = Data.load("proj2/byog/SaveFiles/enemies.txt");
+                Game.enemies = Data.load("enemies.txt");
                 for (int i = 0; i < l; i++) {
                     a.addLast(Character.toLowerCase(input.charAt(i)));
                 }

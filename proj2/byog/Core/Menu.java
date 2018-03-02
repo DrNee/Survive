@@ -91,13 +91,13 @@ public class Menu implements Serializable {
 
     // loads old game data
     public void loadData() {
-        File check = new File("proj2/byog/SaveFiles/map.txt");
+        File check = new File("map.txt");
         if (!check.exists()) {
             System.exit(0);
         }
-        Game.map = Data.load("proj2/byog/SaveFiles/map.txt");
-        Game.world = Data.load("proj2/byog/SaveFiles/world.txt");
-        Game.player = Data.load("proj2/byog/SaveFiles/input.txt");
-//        Game.enemies = Data.load("proj2/byog/SaveFiles/enemies.txt");
+        Game.map = Data.load("map.txt");
+        Game.world = Data.load("world.txt");
+        Game.player = Data.load("input.txt");
+        Game.enemies = Data.load("proj2/byog/SaveFiles/enemies.txt");
     }
 }
