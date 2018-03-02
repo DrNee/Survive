@@ -8,7 +8,7 @@ import edu.princeton.cs.introcs.StdDraw;
 import java.awt.*;
 import java.io.Serializable;
 
-public class Input implements Serializable {
+public class Input extends Unit implements Serializable {
     private Tuple oldPos;
     private TETile oldTile, firstTile;
     private Tuple pos;
@@ -27,7 +27,6 @@ public class Input implements Serializable {
     public void run(String input) {
         Game.a.removeFirst();
         while (Game.a.size() > 0) {
-            mouseRead();
             processStringInput();
             Game.ter.renderFrame(Game.world);
         }
@@ -155,9 +154,8 @@ public class Input implements Serializable {
 
     // saves the current game state
     public void save() {
-        Data.save(Game.world, "proj2/byog/SaveFiles/world");
-        Data.save(this, "proj2/byog/SaveFiles/input");
-        Data.save(Game.ter, "proj2/byog/SaveFiles/ter");
-        Data.save(Game.map, "proj2/byog/SaveFiles/map");
+        Data.save(Game.world, "proj2/byog/SaveFiles/world.txt");
+        Data.save(this, "proj2/byog/SaveFiles/input.txt");
+        Data.save(Game.map, "proj2/byog/SaveFiles/map.txt");
     }
 }
