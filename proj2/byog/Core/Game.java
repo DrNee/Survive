@@ -97,6 +97,7 @@ public class Game implements Serializable {
         } else if (input.substring(0, 1).equalsIgnoreCase("l")) {
             File check = new File("map.txt");
             if (check.exists()) {
+                Game.random = Data.load("random.txt");
                 Game.map = Data.load("map.txt");
                 Game.world = Data.load("world.txt");
                 Game.player = Data.load("input.txt");

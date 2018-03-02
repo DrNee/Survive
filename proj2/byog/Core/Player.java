@@ -30,7 +30,7 @@ public class Player implements Serializable {
         }
         while (Game.a.size() > 0) {
             processStringInput();
-//            Game.ter.renderFrame(Game.world);
+            Game.ter.renderFrame(Game.world);
         }
     }
 
@@ -54,7 +54,7 @@ public class Player implements Serializable {
                 colonQ();
             }
             letterCheck(Game.a.removeFirst());
-//            enemyMove();
+            enemyMove();
             updatePlayer();
             round++;
         }
@@ -149,19 +149,20 @@ public class Player implements Serializable {
         StdDraw.textLeft(1, Game.HEIGHT, "Current tile: " + x);
         StdDraw.show();
     }
-//
-//    public void enemyMove() {
-//        for (Enemy e: Game.enemies) {
-//            e.randomMove();
-//            e.updateEnemy();
-//        }
-//    }
+
+    public void enemyMove() {
+        for (Enemy e: Game.enemies) {
+            e.randomMove();
+            e.updateEnemy();
+        }
+    }
 
     // saves the current game state
     public void save() {
+        Data.save(Game.random, "random.txt");
         Data.save(Game.world, "world.txt");
         Data.save(this, "input.txt");
         Data.save(Game.map, "map.txt");
-//        Data.save(Game.enemies, "proj2/byog/SaveFiles/enemies.txt");
+        Data.save(Game.enemies, "enemies.txt");
     }
 }

@@ -86,7 +86,7 @@ public class Menu implements Serializable {
         Game.map.generate();
         Game.world = Game.map.getWorld();
         Game.player = new Player();
-//        Enemy.spawn();
+        Enemy.spawn();
     }
 
     // loads old game data
@@ -95,9 +95,10 @@ public class Menu implements Serializable {
         if (!check.exists()) {
             System.exit(0);
         }
+        Game.random = Data.load("random.txt");
         Game.map = Data.load("map.txt");
         Game.world = Data.load("world.txt");
         Game.player = Data.load("input.txt");
-        Game.enemies = Data.load("proj2/byog/SaveFiles/enemies.txt");
+        Game.enemies = Data.load("enemies.txt");
     }
 }

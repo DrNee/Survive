@@ -3,7 +3,6 @@ package byog.Core;
 import byog.TileEngine.Tileset;
 
 import java.io.Serializable;
-import java.util.Random;
 
 public class Enemy implements Serializable {
     private Tuple oldPos;
