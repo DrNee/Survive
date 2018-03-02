@@ -5,7 +5,7 @@ import byog.TileEngine.TETile;
 
 import java.io.File;
 import java.io.Serializable;
-import java.util.ArrayList;
+//import java.util.ArrayList;
 import java.util.LinkedList;
 
 
@@ -97,15 +97,15 @@ public class Game implements Serializable {
         } else if (input.substring(0, 1).equalsIgnoreCase("l")) {
             File check = new File("proj2/byog/SaveFiles/map.txt");
             if (check.exists()) {
-                System.exit(0);
-            }
-            Game.map = Data.load("proj2/byog/SaveFiles/map.txt");
-            Game.world = Data.load("proj2/byog/SaveFiles/world.txt");
-            Game.player = Data.load("proj2/byog/SaveFiles/input.txt");
+                Game.map = Data.load("proj2/byog/SaveFiles/map.txt");
+                Game.world = Data.load("proj2/byog/SaveFiles/world.txt");
+                Game.player = Data.load("proj2/byog/SaveFiles/input.txt");
 //            Game.enemies = Data.load("proj2/byog/SaveFiles/enemies.txt");
-            for (int i = 1; i < l; i++) {
-                a.addLast(Character.toLowerCase(input.charAt(i)));
+                for (int i = 1; i < l; i++) {
+                    a.addLast(Character.toLowerCase(input.charAt(i)));
+                }
             }
+
         }
         return actions;
     }

@@ -25,7 +25,9 @@ public class Player implements Serializable {
     }
 
     public void run(String input) {
-        Game.a.removeFirst();
+        if (!Game.a.isEmpty()) {
+            Game.a.removeFirst();
+        }
         while (Game.a.size() > 0) {
             processStringInput();
 //            Game.ter.renderFrame(Game.world);
