@@ -106,7 +106,6 @@ public class Player implements Serializable {
         Game.a.removeFirst();
         if (Game.a.peekFirst() == 'q') {
             save();
-            System.exit(0);
         }
     }
 
