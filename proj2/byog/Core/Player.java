@@ -159,9 +159,9 @@ public class Player implements Serializable {
 
     // saves the current game state
     public void save() {
-        Data.save(Game.world, "proj2/byog/SaveFiles/world.txt");
-        Data.save(this, "proj2/byog/SaveFiles/input.txt");
-        Data.save(Game.map, "proj2/byog/SaveFiles/map.txt");
+        Data.save(Game.world, "world.txt");
+        Data.save(this, "input.txt");
+        Data.save(Game.map, "map.txt");
 //        Data.save(Game.enemies, "proj2/byog/SaveFiles/enemies.txt");
     }
 }

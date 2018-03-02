@@ -17,7 +17,6 @@ public class Map implements Serializable {
     private static final int MINSIZE = 7, MAXSIZE = 12;
     private static final int THRESH = 1; //threshold for intersection
 
-    private Random random;
     private Long seed;
     private int width, height;
     private static ArrayList<Room> rooms;
@@ -27,7 +26,7 @@ public class Map implements Serializable {
         this.seed = seed;
         this.width = width;
         this.height = height;
-        random = new Random(seed);
+        Game.random = new Random(seed);
         rooms = new ArrayList<>();
         world = new TETile[width][height];
     }
@@ -38,10 +37,10 @@ public class Map implements Serializable {
      * we have to leave an opening somewhere and link up the room and hallway
      */
     private Room generateRoom() {
-        int rwidth = MINSIZE + random.nextInt(MAXSIZE - MINSIZE + 1);
-        int rlength = MINSIZE + random.nextInt(MAXSIZE - MINSIZE + 1);
-        int rx = random.nextInt(width);
-        int ry = random.nextInt(height);
+        int rwidth = MINSIZE + Game.random.nextInt(MAXSIZE - MINSIZE + 1);
+        int rlength = MINSIZE + Game.random.nextInt(MAXSIZE - MINSIZE + 1);
+        int rx = Game.random.nextInt(width);
+        int ry = Game.random.nextInt(height);
 
         if (rx < (width - MAXSIZE) && ry < (height - MAXSIZE)) {
             return new Room(new Tuple(rx, ry), new Tuple(rx + rwidth, ry),
@@ -121,10 +120,10 @@ public class Map implements Serializable {
     // can alternatively do rooms.size() - 1 to not connect the last room (may be good for gameplay)
     public void addHallways() {
         ArrayList<Room> copy = new ArrayList<>(rooms);
-        int temp = random.nextInt(rooms.size());
+        int temp = Game.random.nextInt(rooms.size());
         for (int i = 0; i < rooms.size(); i++) {
             int index = rooms.get(temp).calcNearest(rooms, copy, temp);
-            int rand = random.nextInt(2);
+            int rand = Game.random.nextInt(2);
             Hallway hw = generateHallway(rooms.get(temp), rooms.get(index), rand);
             Hallway hw2 = generateHallway(rooms.get(index), rooms.get(temp), Math.abs(rand - 1));
             addToMap(hw);
@@ -211,7 +210,7 @@ public class Map implements Serializable {
         double life = .2;
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
-                if (random.nextDouble() < life) {
+                if (Game.random.nextDouble() < life) {
                     world[i][j] = Tileset.WALL;
                 } else {
                     world[i][j] = Tileset.FLOOR;

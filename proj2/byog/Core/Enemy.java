@@ -27,8 +27,7 @@
 //    }
 //
 //    protected void randomMove() {
-//        Random r = new Random();
-//        numberCheck(r.nextInt(4));
+//        numberCheck(Game.random.nextInt(4));
 //    }
 //
 //    public void numberCheck(int num) {

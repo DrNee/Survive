@@ -7,12 +7,14 @@ import java.io.File;
 import java.io.Serializable;
 //import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.Random;
 
 
 public class Game implements Serializable {
     protected static TERenderer ter = new TERenderer();
     /* Feel free to change the width and height. */
     public static final int WIDTH = 85, HEIGHT = 50;
+    protected static Random random;
     protected static TETile[][] world;
     protected static Map map;
     protected static Player player;
@@ -95,11 +97,11 @@ public class Game implements Serializable {
                 }
             }
         } else if (input.substring(0, 1).equalsIgnoreCase("l")) {
-            File check = new File("proj2/byog/SaveFiles/map.txt");
+            File check = new File("map.txt");
             if (check.exists()) {
-                Game.map = Data.load("proj2/byog/SaveFiles/map.txt");
-                Game.world = Data.load("proj2/byog/SaveFiles/world.txt");
-                Game.player = Data.load("proj2/byog/SaveFiles/input.txt");
+                Game.map = Data.load("map.txt");
+                Game.world = Data.load("world.txt");
+                Game.player = Data.load("input.txt");
 //            Game.enemies = Data.load("proj2/byog/SaveFiles/enemies.txt");
                 for (int i = 0; i < l; i++) {
                     a.addLast(Character.toLowerCase(input.charAt(i)));
