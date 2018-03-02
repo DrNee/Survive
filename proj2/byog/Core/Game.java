@@ -16,7 +16,7 @@ public class Game implements Serializable {
     protected static TETile[][] world;
     protected static Map map;
     protected static Player player;
-    protected static ArrayList<Enemy> enemies = new ArrayList<>();
+//    protected static ArrayList<Enemy> enemies = new ArrayList<>();
     protected static LinkedList<Character> a = new LinkedList<>();
 
     /**
@@ -63,7 +63,7 @@ public class Game implements Serializable {
             world = test.getWorld();
             player = new Player();
 //            ter.renderFrame(world);
-            Enemy.spawn();
+//            Enemy.spawn();
             player.run(actions);
         } else {
 //            ter.renderFrame(world);
@@ -102,7 +102,7 @@ public class Game implements Serializable {
             Game.map = Data.load("proj2/byog/SaveFiles/map.txt");
             Game.world = Data.load("proj2/byog/SaveFiles/world.txt");
             Game.player = Data.load("proj2/byog/SaveFiles/input.txt");
-            Game.enemies = Data.load("proj2/byog/SaveFiles/enemies.txt");
+//            Game.enemies = Data.load("proj2/byog/SaveFiles/enemies.txt");
             for (int i = 1; i < l; i++) {
                 a.addLast(Character.toLowerCase(input.charAt(i)));
             }
