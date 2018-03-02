@@ -204,4 +204,9 @@ public class TETile implements Serializable {
         TETile that = (TETile) x;
         return this.character == that.character;
     }
+
+    @Override
+    public int hashCode() {
+        return this.character;
+    }
 }

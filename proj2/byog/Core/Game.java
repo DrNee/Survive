@@ -56,17 +56,17 @@ public class Game implements Serializable {
         // and return a 2D tile representation of the world that would have been
         // drawn if the same inputs had been given to playWithKeyboard().
         String actions = readInput(input);
-        ter.initialize(WIDTH, HEIGHT, 0, -1);
+//        ter.initialize(WIDTH, HEIGHT, 0, -1);
         if (!actions.equals("")) {
             Map test = new Map(Long.parseLong(actions), WIDTH, HEIGHT);
             test.generate();
             world = test.getWorld();
             player = new Player();
-            ter.renderFrame(world);
+//            ter.renderFrame(world);
             Enemy.spawn();
             player.run(actions);
         } else {
-            ter.renderFrame(world);
+//            ter.renderFrame(world);
             player.run(actions);
         }
         return world;

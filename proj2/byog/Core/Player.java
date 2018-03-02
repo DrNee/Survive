@@ -28,7 +28,7 @@ public class Player implements Serializable {
         Game.a.removeFirst();
         while (Game.a.size() > 0) {
             processStringInput();
-            Game.ter.renderFrame(Game.world);
+//            Game.ter.renderFrame(Game.world);
         }
     }
 
