@@ -13,7 +13,7 @@ import java.util.Random;
  * of each room. Once a room has been connected, the room it connected to will connect
  * to the next closest room.
  */
-public class Map implements Serializable{
+public class Map implements Serializable {
     private static final int MINSIZE = 7, MAXSIZE = 12;
     private static final int THRESH = 1; //threshold for intersection
 

@@ -1,14 +1,20 @@
 package byog.Core;
 
-import java.io.*;
+import java.io.FileOutputStream;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 
 /**
  * I learned most of this off of reading online, from many different sources
  * mainly StackOverFlow, attached are some URLS I tried
  * https://stackoverflow.com/questions/4118751/how-do-i-serialize-an-object-and-save-it-to-a-file-in-android
- * http://www.avajava.com/tutorials/lessons/how-do-i-write-an-object-to-a-file-and-read-it-back.html
+ * http://www.avajava.com/tutorials/lessons/
+ * how-do-i-write-an-object-to-a-file-and-read-it-back.html
  */
-public class Data implements Serializable{
+public class Data implements Serializable {
 
     /**
      * As of right now, saving kind of works. I believe I will need
@@ -32,7 +38,7 @@ public class Data implements Serializable{
         }
     }
 
-    public static<T extends Serializable> T load(String name) {
+    public static <T extends Serializable> T load(String name) {
         T objectToReturn = null;
         try {
             FileInputStream fis = new FileInputStream(name);

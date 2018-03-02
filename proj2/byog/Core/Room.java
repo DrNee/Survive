@@ -3,7 +3,7 @@ package byog.Core;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Room implements Serializable{
+public class Room implements Serializable {
     // tuples are in the form (x, y)
     private Tuple c1, c2, c3, c4;
 

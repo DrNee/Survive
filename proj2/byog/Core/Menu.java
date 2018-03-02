@@ -4,9 +4,10 @@ import edu.princeton.cs.introcs.StdDraw;
 
 import java.awt.Font;
 import java.awt.Color;
+import java.io.File;
 import java.io.Serializable;
 
-public class Menu implements Serializable{
+public class Menu implements Serializable {
     private static final Color BGCOLOR = new Color(224, 236, 224);
     private int WIDTH, HEIGHT;
     protected Long seed;
@@ -52,6 +53,7 @@ public class Menu implements Serializable{
                         return;
                     case 'q':
                         System.exit(0);
+                        break;
                     default:
                         break;
                 }
@@ -83,14 +85,19 @@ public class Menu implements Serializable{
         Game.map = new Map(seed, WIDTH, HEIGHT);
         Game.map.generate();
         Game.world = Game.map.getWorld();
-        Game.player = new Input();
+        Game.player = new Player();
+        Enemy.spawn();
     }
 
     // loads old game data
     public void loadData() {
-        Game.ter = Data.load("proj2/byog/SaveFiles/ter");
-        Game.map = Data.load("proj2/byog/SaveFiles/map");
-        Game.world = Data.load("proj2/byog/SaveFiles/world");
-        Game.player = Data.load("proj2/byog/SaveFiles/input");
+        File check = new File("proj2/byog/SaveFiles/map.txt");
+        if (!check.exists()) {
+            System.exit(0);
+        }
+        Game.map = Data.load("proj2/byog/SaveFiles/map.txt");
+        Game.world = Data.load("proj2/byog/SaveFiles/world.txt");
+        Game.player = Data.load("proj2/byog/SaveFiles/input.txt");
+        Game.enemies = Data.load("proj2/byog/SaveFiles/enemies.txt");
     }
 }

@@ -3,7 +3,9 @@ package byog.Core;
 import byog.TileEngine.TERenderer;
 import byog.TileEngine.TETile;
 
+import java.io.File;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 
@@ -13,7 +15,8 @@ public class Game implements Serializable {
     public static final int WIDTH = 85, HEIGHT = 50;
     protected static TETile[][] world;
     protected static Map map;
-    protected static Input player;
+    protected static Player player;
+    protected static ArrayList<Enemy> enemies = new ArrayList<>();
     protected static LinkedList<Character> a = new LinkedList<>();
 
     /**
@@ -58,8 +61,9 @@ public class Game implements Serializable {
             Map test = new Map(Long.parseLong(actions), WIDTH, HEIGHT);
             test.generate();
             world = test.getWorld();
-            player = new Input();
+            player = new Player();
             ter.renderFrame(world);
+            Enemy.spawn();
             player.run(actions);
         } else {
             ter.renderFrame(world);
@@ -91,15 +95,17 @@ public class Game implements Serializable {
                 }
             }
         } else if (input.substring(0, 1).equalsIgnoreCase("l")) {
-            Game.ter = Data.load("proj2/byog/SaveFiles/ter");
-            Game.map = Data.load("proj2/byog/SaveFiles/map");
-            Game.world = Data.load("proj2/byog/SaveFiles/world");
-            Game.player = Data.load("proj2/byog/SaveFiles/input");
+            File check = new File("proj2/byog/SaveFiles/map.txt");
+            if (check.exists()) {
+                System.exit(0);
+            }
+            Game.map = Data.load("proj2/byog/SaveFiles/map.txt");
+            Game.world = Data.load("proj2/byog/SaveFiles/world.txt");
+            Game.player = Data.load("proj2/byog/SaveFiles/input.txt");
+            Game.enemies = Data.load("proj2/byog/SaveFiles/enemies.txt");
             for (int i = 1; i < l; i++) {
                 a.addLast(Character.toLowerCase(input.charAt(i)));
             }
-        } else {
-            System.exit(0);
         }
         return actions;
     }

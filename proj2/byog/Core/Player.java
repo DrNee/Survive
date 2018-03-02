@@ -5,15 +5,16 @@ import byog.TileEngine.Tileset;
 
 import edu.princeton.cs.introcs.StdDraw;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Font;
 import java.io.Serializable;
 
-public class Input extends Unit implements Serializable {
+public class Player implements Serializable {
     private Tuple oldPos;
     private TETile oldTile, firstTile;
     private Tuple pos;
 
-    private int round = 0;
+    protected static int round = 0;
 
     // run keyboard game
     public void run() {
@@ -32,7 +33,7 @@ public class Input extends Unit implements Serializable {
         }
     }
 
-    public Input() {
+    public Player() {
         pos = oldPos = Map.getRooms().get(0).calcCenter();
         firstTile = Game.world[oldPos.x][oldPos.y];
         Game.world[pos.x][pos.y] = Tileset.PLAYER;
@@ -55,6 +56,7 @@ public class Input extends Unit implements Serializable {
             letterCheck(Game.a.removeFirst());
             updatePlayer();
             round++;
+            enemyMove();
         }
     }
 
@@ -74,8 +76,7 @@ public class Input extends Unit implements Serializable {
     private boolean canMove(Tuple vec) {
         int newX = pos.x + vec.x;
         int newY = pos.y + vec.y;
-        return !Game.world[newX][newY].equals(Tileset.WALL)
-                && Game.world[newX][newY].equals(Tileset.FLOOR);
+        return Game.world[newX][newY].equals(Tileset.FLOOR);
     }
 
     // checks the quit case
@@ -101,6 +102,7 @@ public class Input extends Unit implements Serializable {
         letterCheck(Game.a.removeFirst());
         updatePlayer();
         round++;
+        enemyMove();
     }
 
     // checks the quit case
@@ -118,6 +120,7 @@ public class Input extends Unit implements Serializable {
             case 'a': move(new Tuple(-1, 0)); break;
             case 's': move(new Tuple(0, -1)); break;
             case 'd': move(new Tuple(1, 0)); break;
+            default: break;
         }
     }
 
@@ -152,10 +155,18 @@ public class Input extends Unit implements Serializable {
         StdDraw.show();
     }
 
+    public void enemyMove() {
+        for (Enemy e: Game.enemies) {
+            e.randomMove();
+            e.updateEnemy();
+        }
+    }
+
     // saves the current game state
     public void save() {
         Data.save(Game.world, "proj2/byog/SaveFiles/world.txt");
         Data.save(this, "proj2/byog/SaveFiles/input.txt");
         Data.save(Game.map, "proj2/byog/SaveFiles/map.txt");
+        Data.save(Game.enemies, "proj2/byog/SaveFiles/enemies.txt");
     }
 }
