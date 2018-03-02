@@ -11,7 +11,6 @@ import java.io.Serializable;
 
 public class Player implements Serializable {
     private Tuple oldPos;
-    private TETile oldTile, firstTile;
     private Tuple pos;
 
     protected static int round = 0;
@@ -35,12 +34,11 @@ public class Player implements Serializable {
 
     public Player() {
         pos = oldPos = Map.getRooms().get(0).calcCenter();
-        firstTile = Game.world[oldPos.x][oldPos.y];
         Game.world[pos.x][pos.y] = Tileset.PLAYER;
     }
 
     private void updatePlayer() {
-        Game.world[oldPos.x][oldPos.y] = oldTile;
+        Game.world[oldPos.x][oldPos.y] = Tileset.FLOOR;
         Game.world[pos.x][pos.y] = Tileset.PLAYER;
     }
 
@@ -54,19 +52,15 @@ public class Player implements Serializable {
                 colonQ();
             }
             letterCheck(Game.a.removeFirst());
+            enemyMove();
             updatePlayer();
             round++;
-            enemyMove();
         }
     }
 
     // moves the player
     private void move(Tuple vec) {
         if (canMove(vec)) {
-            oldTile = Game.world[oldPos.x][oldPos.y];
-            if (round == 0) {
-                oldTile = firstTile;
-            }
             oldPos = pos;
             pos = new Tuple(pos.x + vec.x, pos.y + vec.y);
         }
@@ -101,8 +95,8 @@ public class Player implements Serializable {
         }
         letterCheck(Game.a.removeFirst());
         updatePlayer();
-        round++;
         enemyMove();
+        round++;
     }
 
     // checks the quit case
@@ -151,7 +145,7 @@ public class Player implements Serializable {
     public void displayInfo(String x) {
         Font font = new Font("Comic Sans", Font.BOLD, 30);
         StdDraw.setPenColor(Color.white);
-        StdDraw.textLeft(1, Game.HEIGHT - 1, "Current tile: " + x);
+        StdDraw.textLeft(1, Game.HEIGHT, "Current tile: " + x);
         StdDraw.show();
     }
 
