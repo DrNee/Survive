@@ -101,7 +101,7 @@ public class Game implements Serializable {
                 Game.world = Data.load("proj2/byog/SaveFiles/world.txt");
                 Game.player = Data.load("proj2/byog/SaveFiles/input.txt");
 //            Game.enemies = Data.load("proj2/byog/SaveFiles/enemies.txt");
-                for (int i = 1; i < l; i++) {
+                for (int i = 0; i < l; i++) {
                     a.addLast(Character.toLowerCase(input.charAt(i)));
                 }
             }
