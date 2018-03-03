@@ -82,7 +82,7 @@ public class Player implements Serializable {
         if (Game.world[newX][newY].equals(Tileset.ENEMY)) {
             alive = false;
         } else if (Game.world[newX][newY].equals(Tileset.STAR)) {
-            hunger += 10;
+            hunger += 15;
             return true;
         } else if (Game.world[newX][newY].equals(Tileset.LOCKED_DOOR)) {
             win = true;
@@ -212,5 +212,6 @@ public class Player implements Serializable {
         Data.save(this, "input.txt");
         Data.save(Game.map, "map.txt");
         Data.save(Game.enemies, "enemies.txt");
+        Data.save(Game.renWorld, "renworld.txt");
     }
 }

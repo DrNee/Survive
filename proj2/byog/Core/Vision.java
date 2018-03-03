@@ -2,9 +2,10 @@ package byog.Core;
 import byog.TileEngine.TETile;
 import byog.TileEngine.Tileset;
 
+import java.io.Serializable;
 import java.util.HashSet;
 
-public class Vision {
+public class Vision implements Serializable {
     private Tuple pos;
 
     public Vision(Player p) {
@@ -47,8 +48,6 @@ public class Vision {
         return Game.renWorld;
     }
 
-
-
     /*
 
     start at player position: let's call it x, y
@@ -65,7 +64,4 @@ public class Vision {
     render only the points in the running list
 
     */
-
-
-
 }

@@ -27,6 +27,14 @@ public class Tileset implements Serializable {
     public static final TETile ENEMY = new TETile('☣', Color.RED, Color.white, "enemy");
     public static final TETile STAR = new TETile('★', Color.GREEN, Color.black, "star");
 
+    public static final TETile WALL_OLD = new TETile('■', new Color(150, 75, 0), new Color(140, 60, 10),
+            "wall");
+    public static final TETile FLOOR_OLD = new TETile('▒', Color.LIGHT_GRAY, Color.GRAY,
+            "floor");
+    public static final TETile NOTHING_OLD = new TETile(' ', Color.black, Color.black, "nothing");
+    public static final TETile ENEMY_OLD = new TETile('☣', Color.RED, Color.white, "enemy");
+    public static final TETile STAR_OLD = new TETile('★', Color.GREEN, Color.black, "star");
+
 
     public static final TETile GRASS = new TETile('"', Color.green, Color.black, "grass");
     public static final TETile WATER = new TETile('≈', Color.blue, Color.black, "water");

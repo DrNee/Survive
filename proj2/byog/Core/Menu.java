@@ -159,5 +159,6 @@ public class Menu implements Serializable {
         Game.world = Data.load("world.txt");
         Game.player = Data.load("input.txt");
         Game.enemies = Data.load("enemies.txt");
+        Game.renWorld = Data.load("renworld.txt");
     }
 }
