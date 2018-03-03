@@ -203,17 +203,11 @@ public class Map implements Serializable {
         }
     }
 
-    /**
-     * to fill the map using cellular automata, not yet implemented
-     */
-    public void fillAutomata() {
-        double life = .2;
+    public void addFood(double amount) {
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
-                if (Game.random.nextDouble() < life) {
-                    world[i][j] = Tileset.WALL;
-                } else {
-                    world[i][j] = Tileset.FLOOR;
+                if (Game.random.nextDouble() < amount && world[i][j].equals(Tileset.FLOOR)) {
+                    world[i][j] = Tileset.STAR;
                 }
             }
         }
@@ -223,6 +217,7 @@ public class Map implements Serializable {
         fillEmpty();
         addRooms(15);
         addHallways();
+        addFood(.025);
     }
 
     public TETile[][] getWorld() {

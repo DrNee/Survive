@@ -6,19 +6,21 @@ import byog.TileEngine.Tileset;
 import edu.princeton.cs.introcs.StdDraw;
 
 import java.awt.Color;
-import java.awt.Font;
 import java.io.Serializable;
 
 public class Player implements Serializable {
     private Tuple oldPos;
     private Tuple pos;
+    protected static boolean alive = true;
+    protected static boolean win = false;
+    private int hunger = 100;
 
     protected static int round = 0;
 
     // run keyboard game
     public void run() {
-        while (true) {
-            mouseRead();
+        while (alive && !win) {
+            gui();
             input();
             Game.ter.renderFrame(Game.world);
         }
@@ -42,6 +44,10 @@ public class Player implements Serializable {
     private void updatePlayer() {
         Game.world[oldPos.x][oldPos.y] = Tileset.FLOOR;
         Game.world[pos.x][pos.y] = Tileset.PLAYER;
+        hunger--;
+        if (hunger == 0) {
+            alive = false;
+        }
     }
 
     // takes input
@@ -53,8 +59,8 @@ public class Player implements Serializable {
             if (Game.a.peekFirst() == ':') {
                 colonQ();
             }
-            letterCheck(Game.a.removeFirst());
             enemyMove();
+            letterCheck(Game.a.removeFirst());
             updatePlayer();
             round++;
         }
@@ -72,11 +78,20 @@ public class Player implements Serializable {
     private boolean canMove(Tuple vec) {
         int newX = pos.x + vec.x;
         int newY = pos.y + vec.y;
+        if (Game.world[newX][newY].equals(Tileset.ENEMY)) {
+            alive = false;
+        } else if (Game.world[newX][newY].equals(Tileset.STAR)) {
+            hunger += 10;
+            return true;
+        } else if (Game.world[newX][newY].equals(Tileset.LOCKED_DOOR)) {
+            win = true;
+            return true;
+        }
         return Game.world[newX][newY].equals(Tileset.FLOOR);
     }
 
     // checks the quit case
-    public void colonQ() {
+    private void colonQ() {
         Game.a.removeFirst();
         while (true) {
             if (StdDraw.hasNextKeyTyped()) {
@@ -91,25 +106,25 @@ public class Player implements Serializable {
         }
     }
 
-    public void processStringInput() {
+    private void processStringInput() {
         if (Game.a.peekFirst() == ':') {
             colonQString();
         }
+        enemyMove();
         letterCheck(Game.a.removeFirst());
         updatePlayer();
-//        enemyMove();
         round++;
     }
 
     // checks the quit case
-    public void colonQString() {
+    private void colonQString() {
         Game.a.removeFirst();
         if (Game.a.peekFirst() == 'q') {
             save();
         }
     }
 
-    public void letterCheck(char letter) {
+    private void letterCheck(char letter) {
         switch (letter) {
             case 'w': move(new Tuple(0, 1)); break;
             case 'a': move(new Tuple(-1, 0)); break;
@@ -120,7 +135,7 @@ public class Player implements Serializable {
     }
 
     // find position of mouse and check what tile it is
-    public void mouseRead() {
+    private void mouseRead() {
         int x = (int) Math.floor(StdDraw.mouseX());
         int y = (int) Math.floor(StdDraw.mouseY());
         if (y < Game.HEIGHT) {
@@ -129,9 +144,13 @@ public class Player implements Serializable {
     }
 
     // checks the tile type
-    public String tileType(TETile x) {
+    private String tileType(TETile x) {
         if (x.equals(Tileset.PLAYER)) {
             return "player";
+        } else if (x.equals(Tileset.ENEMY)) {
+            return "enemy";
+        } else if (x.equals(Tileset.STAR)) {
+            return "food";
         } else if (x.equals(Tileset.FLOOR)) {
             return "floor";
         } else if (x.equals(Tileset.WALL)) {
@@ -143,22 +162,39 @@ public class Player implements Serializable {
     }
 
     // add bar later, for now, displays the tile on the top left
-    public void displayInfo(String x) {
-        Font font = new Font("Comic Sans", Font.BOLD, 30);
+    private void displayInfo(String x) {
         StdDraw.setPenColor(Color.white);
         StdDraw.textLeft(1, Game.HEIGHT, "Current tile: " + x);
-        StdDraw.show();
     }
 
-    public void enemyMove() {
+    private void enemyMove() {
         for (Enemy e: Game.enemies) {
             e.randomMove();
             e.updateEnemy();
         }
     }
 
+    private void gui() {
+        mouseRead();
+        StdDraw.setPenColor(Color.white);
+        StdDraw.text(Game.WIDTH / 2, Game.HEIGHT, "Hunger: " + hunger);
+        StdDraw.show();
+    }
+
+    public void placeDoor() {
+        boolean placed = false;
+        while (!placed) {
+            int w = Game.random.nextInt(Game.WIDTH);
+            int h = Game.random.nextInt(Game.HEIGHT);
+            if (Game.world[w][h].equals(Tileset.FLOOR)) {
+                Game.world[w][h] = Tileset.LOCKED_DOOR;
+                placed = true;
+            }
+        }
+    }
+
     // saves the current game state
-    public void save() {
+    private void save() {
         Data.save(Game.random, "random.txt");
         Data.save(Game.world, "world.txt");
         Data.save(this, "input.txt");

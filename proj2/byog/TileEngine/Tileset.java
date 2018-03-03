@@ -25,6 +25,9 @@ public class Tileset implements Serializable {
             "floor");
     public static final TETile NOTHING = new TETile(' ', Color.black, Color.black, "nothing");
     public static final TETile ENEMY = new TETile('☣', Color.RED, Color.white, "enemy");
+    public static final TETile STAR = new TETile('★', Color.GREEN, Color.black, "star");
+
+
     public static final TETile GRASS = new TETile('"', Color.green, Color.black, "grass");
     public static final TETile WATER = new TETile('≈', Color.blue, Color.black, "water");
     public static final TETile FLOWER = new TETile('❀', Color.magenta, Color.pink, "flower");

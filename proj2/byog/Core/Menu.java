@@ -86,7 +86,57 @@ public class Menu implements Serializable {
         Game.map.generate();
         Game.world = Game.map.getWorld();
         Game.player = new Player();
+        Player.alive = true;
+        Player.win = false;
         Enemy.spawn();
+        Game.player.placeDoor();
+    }
+
+    // game Over screen
+    public void gameOver() {
+        Font font = new Font("Comic Sans", Font.BOLD, 80);
+        StdDraw.setFont(font);
+        StdDraw.clear(BGCOLOR);
+        StdDraw.setPenColor(79, 175, 180);
+        StdDraw.text(Game.WIDTH / 2, Game.HEIGHT / 2 + 7, "G A M E");
+        StdDraw.text(Game.WIDTH / 2, Game.HEIGHT / 2 - 1, "O V E R");
+        font = new Font("Comic Sans", Font.BOLD, 30);
+        StdDraw.setFont(font);
+        StdDraw.text(Game.WIDTH / 2, Game.HEIGHT / 2 - 8, "Restart (R)");
+        StdDraw.text(Game.WIDTH / 2, Game.HEIGHT / 2 - 10, "Quit (Q)");
+        StdDraw.show();
+        restartOrQuit();
+    }
+
+    public void win() {
+        Font font = new Font("Comic Sans", Font.BOLD, 80);
+        StdDraw.setFont(font);
+        StdDraw.clear(BGCOLOR);
+        StdDraw.setPenColor(79, 175, 180);
+        StdDraw.text(Game.WIDTH / 2, Game.HEIGHT / 2 + 7, "C O N G R A T U L A T I O N S");
+        StdDraw.text(Game.WIDTH / 2, Game.HEIGHT / 2 - 1, "Y O U W I N !");
+        font = new Font("Comic Sans", Font.BOLD, 30);
+        StdDraw.setFont(font);
+        StdDraw.text(Game.WIDTH / 2, Game.HEIGHT / 2 - 8, "Restart (R)");
+        StdDraw.text(Game.WIDTH / 2, Game.HEIGHT / 2 - 10, "Quit (Q)");
+        StdDraw.show();
+        restartOrQuit();
+    }
+
+    public void restartOrQuit() {
+        while (true) {
+            if (StdDraw.hasNextKeyTyped()) {
+                switch (StdDraw.nextKeyTyped()) {
+                    case 'r': restart(); break;
+                    case 'q': System.exit(0);
+                }
+            }
+        }
+    }
+
+    public void restart() {
+        Game game = new Game();
+        game.playWithKeyboard();
     }
 
     // loads old game data
@@ -95,6 +145,8 @@ public class Menu implements Serializable {
         if (!check.exists()) {
             System.exit(0);
         }
+        Player.alive  = true;
+        Player.win = false;
         Game.random = Data.load("random.txt");
         Game.map = Data.load("map.txt");
         Game.world = Data.load("world.txt");

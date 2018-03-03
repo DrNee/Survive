@@ -38,7 +38,11 @@ public class Game implements Serializable {
         // run the player
         player.run();
 
-        // continually move the world, add win condition later
+        if (!Player.alive) {
+            menu.gameOver();
+        } else {
+            menu.win();
+        }
     }
 
     /**

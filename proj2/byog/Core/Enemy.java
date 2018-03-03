@@ -3,6 +3,7 @@ package byog.Core;
 import byog.TileEngine.Tileset;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class Enemy implements Serializable {
     private Tuple oldPos;
@@ -15,6 +16,7 @@ public class Enemy implements Serializable {
 
     // spawns initial enemy units
     public static void spawn() {
+        Game.enemies = new ArrayList<>();
         for (int i = 1; i < Map.getRooms().size(); i++) {
             Game.enemies.add(new Enemy(i));
         }
@@ -51,6 +53,9 @@ public class Enemy implements Serializable {
     private boolean canMove(Tuple vec) {
         int newX = pos.x + vec.x;
         int newY = pos.y + vec.y;
+        if (Game.world[newX][newY].equals(Tileset.PLAYER)) {
+            Player.alive = false;
+        }
         return Game.world[newX][newY].equals(Tileset.FLOOR);
     }
 }
