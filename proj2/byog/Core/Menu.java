@@ -1,5 +1,7 @@
 package byog.Core;
 
+import byog.TileEngine.TETile;
+import byog.TileEngine.Tileset;
 import edu.princeton.cs.introcs.StdDraw;
 
 import java.awt.Font;
@@ -86,6 +88,7 @@ public class Menu implements Serializable {
         Game.map.generate();
         Game.world = Game.map.getWorld();
         Game.player = new Player();
+        renWorldInit();
         Player.alive = true;
         Player.win = false;
         Enemy.spawn();
@@ -137,6 +140,10 @@ public class Menu implements Serializable {
     public void restart() {
         Game game = new Game();
         game.playWithKeyboard();
+    }
+
+    public void renWorldInit() {
+        Game.renWorld = new TETile[Game.WIDTH][Game.HEIGHT];
     }
 
     // loads old game data

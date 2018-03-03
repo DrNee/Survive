@@ -16,6 +16,7 @@ public class Game implements Serializable {
     public static final int WIDTH = 85, HEIGHT = 50;
     protected static Random random;
     protected static TETile[][] world;
+    protected static TETile[][] renWorld;
     protected static Map map;
     protected static Player player;
     protected static ArrayList<Enemy> enemies = new ArrayList<>();

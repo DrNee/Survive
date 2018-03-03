@@ -20,9 +20,10 @@ public class Player implements Serializable {
     // run keyboard game
     public void run() {
         while (alive && !win) {
+            rayCast();
             gui();
             input();
-            Game.ter.renderFrame(Game.world);
+            Game.ter.renderFrame(Game.renWorld);
         }
     }
 
@@ -151,6 +152,8 @@ public class Player implements Serializable {
             return "enemy";
         } else if (x.equals(Tileset.STAR)) {
             return "food";
+        } else if (x.equals(Tileset.LOCKED_DOOR)) {
+            return "locked_door";
         } else if (x.equals(Tileset.FLOOR)) {
             return "floor";
         } else if (x.equals(Tileset.WALL)) {
@@ -191,6 +194,15 @@ public class Player implements Serializable {
                 placed = true;
             }
         }
+    }
+
+    public void rayCast() {
+        Vision rc = new Vision(this);
+        rc.renderWorld();
+    }
+
+    public Tuple getPos() {
+        return pos;
     }
 
     // saves the current game state
