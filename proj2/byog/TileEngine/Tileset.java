@@ -18,22 +18,20 @@ import java.io.Serializable;
  */
 
 public class Tileset implements Serializable {
-    public static final TETile PLAYER = new TETile('♞', Color.white, Color.black, "player");
-    public static final TETile WALL = new TETile('■', new Color(150, 75, 0), new Color(140, 60, 10),
+    public static final TETile PLAYER = new TETile('♞', new Color(255, 255, 255), new Color(0, 0, 0), "player");
+    public static final TETile WALL = new TETile('■', new Color(79, 79, 79), new Color(30, 30, 30),
             "wall");
-    public static final TETile FLOOR = new TETile('▒', Color.LIGHT_GRAY, Color.GRAY,
+    public static final TETile FLOOR = new TETile('▒', new Color(119, 61, 0), new Color(145, 74, 0),
             "floor");
     public static final TETile NOTHING = new TETile(' ', Color.black, Color.black, "nothing");
     public static final TETile ENEMY = new TETile('☣', Color.RED, Color.white, "enemy");
-    public static final TETile STAR = new TETile('★', Color.GREEN, Color.black, "star");
+    public static final TETile CLOUD = new TETile('☁', new Color(149, 198, 0), new Color(80, 80, 80), "cloud");
 
-    public static final TETile WALL_OLD = new TETile('■', new Color(150, 75, 0), new Color(140, 60, 10),
+    public static final TETile WALL_OLD = new TETile('■', new Color(40, 40, 40), new Color(12, 12, 12),
             "wall");
-    public static final TETile FLOOR_OLD = new TETile('▒', Color.LIGHT_GRAY, Color.GRAY,
+    public static final TETile FLOOR_OLD = new TETile('▒', new Color(70, 30, 0), new Color(124, 63, 0),
             "floor");
-    public static final TETile NOTHING_OLD = new TETile(' ', Color.black, Color.black, "nothing");
-    public static final TETile ENEMY_OLD = new TETile('☣', Color.RED, Color.white, "enemy");
-    public static final TETile STAR_OLD = new TETile('★', Color.GREEN, Color.black, "star");
+    public static final TETile CLOUD_OLD = new TETile('☁', new Color(88, 138, 0), new Color(30, 30, 30), "star");
 
 
     public static final TETile GRASS = new TETile('"', Color.green, Color.black, "grass");

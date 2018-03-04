@@ -207,7 +207,7 @@ public class Map implements Serializable {
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
                 if (Game.random.nextDouble() < amount && world[i][j].equals(Tileset.FLOOR)) {
-                    world[i][j] = Tileset.STAR;
+                    world[i][j] = Tileset.CLOUD;
                 }
             }
         }
@@ -217,7 +217,7 @@ public class Map implements Serializable {
         fillEmpty();
         addRooms(15);
         addHallways();
-        addFood(.025);
+        addFood(.03);
     }
 
     public TETile[][] getWorld() {

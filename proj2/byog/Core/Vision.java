@@ -1,51 +1,66 @@
 package byog.Core;
-import byog.TileEngine.TETile;
 import byog.TileEngine.Tileset;
 
 import java.io.Serializable;
-import java.util.HashSet;
+import java.util.ArrayList;
 
 public class Vision implements Serializable {
-    private Tuple pos;
+    protected static ArrayList<Tuple> old = new ArrayList<>();
 
-    public Vision(Player p) {
-        this.pos = p.getPos();
+    private static boolean isBlocked(Tuple point) {
+        return Game.world[point.x][point.y].equals(Tileset.WALL);
     }
 
-    private boolean isBlocked(Tuple point) {
-        return point.x < Game.WIDTH && point.y < Game.HEIGHT
-                && Game.world[point.x][point.y].equals(Tileset.WALL);
-    }
-
-    private HashSet<Tuple> generateVisiblePoints(double Radius, double dTheta, double dr) {
-        HashSet<Tuple> visiblePoints = new HashSet<>();
+    private static ArrayList<Tuple> generateVisiblePoints(double Radius, double dTheta, double dr) {
+        ArrayList<Tuple> visiblePoints = new ArrayList<>();
         for (double theta = 0; theta <= 2 * Math.PI; theta += dTheta) {
             for (double r = 0; r <= Radius; r += dr) {
-                Tuple point = new Tuple((int) Math.round(pos.x + r * Math.cos(theta)),
-                        (int) Math.round(pos.y + r * Math.sin(theta)));
-                if (isBlocked(point)) {
-                    visiblePoints.add(point);
-                    break;
-                }
-                else {
-                    visiblePoints.add(point);
-                }
+                Tuple point = new Tuple((int) Math.round(Game.player.getPos().x + r * Math.cos(theta)),
+                        (int) Math.round(Game.player.getPos().y + r * Math.sin(theta)));
+                    if (isBlocked(point)) {
+                        if (checkInside(visiblePoints, point)) {
+                            visiblePoints.add(point);
+                        }
+                        break;
+                    } else {
+                        if (checkInside(visiblePoints, point)) {
+                            visiblePoints.add(point);
+                        }
+                    }
             }
         }
         return visiblePoints;
     }
 
-    protected TETile[][] renderWorld() {
-        HashSet<Tuple> points = generateVisiblePoints(7, Math.toRadians(7.3), .6);
-        for (int i = 0; i < Game.WIDTH; i++) {
-            for (int j = 0; j < Game.HEIGHT; j++) {
-                Game.renWorld[i][j] = Tileset.NOTHING;
+    private static boolean checkInside(ArrayList<Tuple> vis, Tuple tup) {
+        for (Tuple t: vis) {
+            if (t.x == tup.x && t.y == tup.y && t != tup) {
+                return false;
             }
+        }
+        return true;
+    }
+
+    protected static void renderWorld(int rad) {
+        ArrayList<Tuple> points = generateVisiblePoints(rad, Math.toRadians(7.3), .3);
+        for (int i = 0; i < points.size(); i++) {
+            if (checkInside(old, points.get(i))) {
+                old.add(points.get(i));
+            }
+        }
+        for (Tuple pt: old) {
+            if (Game.world[pt.x][pt.y].equals(Tileset.WALL)) {
+                Game.renWorld[pt.x][pt.y] = Tileset.WALL_OLD;
+            } else if (Game.world[pt.x][pt.y].equals(Tileset.CLOUD)){
+                Game.renWorld[pt.x][pt.y] = Tileset.CLOUD_OLD;
+            } else {
+                Game.renWorld[pt.x][pt.y] = Tileset.FLOOR_OLD;
+            }
+
         }
         for (Tuple pt: points) {
             Game.renWorld[pt.x][pt.y] = Game.world[pt.x][pt.y];
         }
-        return Game.renWorld;
     }
 
     /*

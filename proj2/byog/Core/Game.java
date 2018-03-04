@@ -15,6 +15,7 @@ import java.util.Random;
 // TODO: instead of losing instantly, change an encounter with an enemy to be -# hp
 // TODO: enemies can eat food, increase food amounts
 // TODO: if want to make game more interesting, add key to find before entering door
+// less life ==> less radius of vision
 
 public class Game implements Serializable {
     protected static TERenderer ter = new TERenderer();

@@ -56,7 +56,7 @@ public class Player implements Serializable {
     // it is constant time to access the first values;
     private void input() {
         if (StdDraw.hasNextKeyTyped()) {
-            Game.a.add(StdDraw.nextKeyTyped());
+            Game.a.add(Character.toLowerCase(StdDraw.nextKeyTyped()));
             if (Game.a.peekFirst() == ':') {
                 colonQ();
             }
@@ -81,7 +81,7 @@ public class Player implements Serializable {
         int newY = pos.y + vec.y;
         if (Game.world[newX][newY].equals(Tileset.ENEMY)) {
             alive = false;
-        } else if (Game.world[newX][newY].equals(Tileset.STAR)) {
+        } else if (Game.world[newX][newY].equals(Tileset.CLOUD)) {
             hunger += 15;
             return true;
         } else if (Game.world[newX][newY].equals(Tileset.LOCKED_DOOR)) {
@@ -96,7 +96,7 @@ public class Player implements Serializable {
         Game.a.removeFirst();
         while (true) {
             if (StdDraw.hasNextKeyTyped()) {
-                Game.a.add(StdDraw.nextKeyTyped());
+                Game.a.add(Character.toLowerCase(StdDraw.nextKeyTyped()));
                 if (Game.a.peekFirst() == 'q') {
                     save();
                     System.exit(0);
@@ -150,7 +150,7 @@ public class Player implements Serializable {
             return "player";
         } else if (x.equals(Tileset.ENEMY)) {
             return "enemy";
-        } else if (x.equals(Tileset.STAR)) {
+        } else if (x.equals(Tileset.CLOUD)) {
             return "food";
         } else if (x.equals(Tileset.LOCKED_DOOR)) {
             return "locked_door";
@@ -197,8 +197,13 @@ public class Player implements Serializable {
     }
 
     public void rayCast() {
-        Vision rc = new Vision(this);
-        rc.renderWorld();
+        int visionRadius = hunger / 15;
+        if (visionRadius >= 7) {
+            visionRadius = 7;
+        } else if (visionRadius <= 3) {
+            visionRadius = 3;
+        }
+        Vision.renderWorld(visionRadius);
     }
 
     public Tuple getPos() {

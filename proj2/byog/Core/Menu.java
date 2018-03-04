@@ -8,6 +8,7 @@ import java.awt.Font;
 import java.awt.Color;
 import java.io.File;
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class Menu implements Serializable {
     private static final Color BGCOLOR = new Color(224, 236, 224);
@@ -45,7 +46,7 @@ public class Menu implements Serializable {
     public void menuInput() {
         while (true) {
             if (StdDraw.hasNextKeyTyped()) {
-                switch (StdDraw.nextKeyTyped()) {
+                switch (Character.toLowerCase(StdDraw.nextKeyTyped())) {
                     case 'n':
                         seed = seedEnter();
                         startNewGame();
@@ -70,7 +71,7 @@ public class Menu implements Serializable {
         String temp = "";
         while (true) {
             if (StdDraw.hasNextKeyTyped()) {
-                char curr = StdDraw.nextKeyTyped();
+                char curr = Character.toLowerCase(StdDraw.nextKeyTyped());
                 if (curr == 's') {
                     break;
                 }
@@ -88,6 +89,7 @@ public class Menu implements Serializable {
         Game.map.generate();
         Game.world = Game.map.getWorld();
         Game.player = new Player();
+        Vision.old = new ArrayList<>();
         renWorldInit();
         Player.alive = true;
         Player.win = false;
@@ -129,7 +131,7 @@ public class Menu implements Serializable {
     public void restartOrQuit() {
         while (true) {
             if (StdDraw.hasNextKeyTyped()) {
-                switch (StdDraw.nextKeyTyped()) {
+                switch (Character.toLowerCase(StdDraw.nextKeyTyped())) {
                     case 'r': restart(); break;
                     case 'q': System.exit(0);
                 }
@@ -144,6 +146,11 @@ public class Menu implements Serializable {
 
     public void renWorldInit() {
         Game.renWorld = new TETile[Game.WIDTH][Game.HEIGHT];
+        for (int i = 0; i < Game.WIDTH; i++) {
+            for (int j = 0; j < Game.HEIGHT; j++) {
+                Game.renWorld[i][j] = Tileset.NOTHING;
+            }
+        }
     }
 
     // loads old game data
@@ -154,6 +161,7 @@ public class Menu implements Serializable {
         }
         Player.alive  = true;
         Player.win = false;
+        Vision.old = new ArrayList<>();
         Game.random = Data.load("random.txt");
         Game.map = Data.load("map.txt");
         Game.world = Data.load("world.txt");
