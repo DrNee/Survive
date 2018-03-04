@@ -56,6 +56,10 @@ public class Enemy implements Serializable {
         if (Game.world[newX][newY].equals(Tileset.PLAYER)) {
             Player.alive = false;
         }
-        return Game.world[newX][newY].equals(Tileset.FLOOR);
+        return Game.world[newX][newY].equals(Tileset.FLOOR)
+                && (!(Game.world[newX - 1][newY].equals(Tileset.WALL)
+                && Game.world[newX + 1][newY].equals(Tileset.WALL))
+                && !(Game.world[newX][newY + 1].equals(Tileset.WALL)
+                && Game.world[newX][newY - 1].equals(Tileset.WALL)));
     }
 }

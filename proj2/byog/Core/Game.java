@@ -39,7 +39,7 @@ public class Game implements Serializable {
 
         // initialize the map from the given seed
         ter.initialize(WIDTH, HEIGHT + 1, 0, 0);
-        ter.renderFrame(world);
+        ter.renderFrame(renWorld);
 
         // add interactive stuff
 

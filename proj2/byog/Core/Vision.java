@@ -49,17 +49,26 @@ public class Vision implements Serializable {
             }
         }
         for (Tuple pt: old) {
-            if (Game.world[pt.x][pt.y].equals(Tileset.WALL)) {
-                Game.renWorld[pt.x][pt.y] = Tileset.WALL_OLD;
-            } else if (Game.world[pt.x][pt.y].equals(Tileset.CLOUD)){
-                Game.renWorld[pt.x][pt.y] = Tileset.CLOUD_OLD;
-            } else {
-                Game.renWorld[pt.x][pt.y] = Tileset.FLOOR_OLD;
-            }
-
+            replaceTile(pt);
         }
         for (Tuple pt: points) {
             Game.renWorld[pt.x][pt.y] = Game.world[pt.x][pt.y];
+        }
+    }
+
+    private static void replaceTile(Tuple pt) {
+        if (Game.world[pt.x][pt.y].equals(Tileset.WALL)) {
+            Game.renWorld[pt.x][pt.y] = Tileset.WALL_OLD;
+        } else if (Game.world[pt.x][pt.y].equals(Tileset.CLOUD)){
+            Game.renWorld[pt.x][pt.y] = Tileset.CLOUD_OLD;
+        } else if (Game.world[pt.x][pt.y].equals(Tileset.LOCKED_DOOR)){
+            Game.renWorld[pt.x][pt.y] = Tileset.LOCKED_DOOR_OLD;
+        } else if (Game.world[pt.x][pt.y].equals(Tileset.UNLOCKED_DOOR)){
+            Game.renWorld[pt.x][pt.y] = Tileset.UNLOCKED_DOOR_OLD;
+        } else if (Game.world[pt.x][pt.y].equals(Tileset.KEY)){
+            Game.renWorld[pt.x][pt.y] = Tileset.KEY_OLD;
+        } else {
+            Game.renWorld[pt.x][pt.y] = Tileset.FLOOR_OLD;
         }
     }
 

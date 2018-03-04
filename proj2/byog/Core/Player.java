@@ -13,9 +13,10 @@ public class Player implements Serializable {
     private Tuple pos;
     protected static boolean alive = true;
     protected static boolean win = false;
+    private boolean hasKey = false;
     private int hunger = 100;
 
-    protected static int round = 0;
+    private static int round = 0;
 
     // run keyboard game
     public void run() {
@@ -84,7 +85,11 @@ public class Player implements Serializable {
         } else if (Game.world[newX][newY].equals(Tileset.CLOUD)) {
             hunger += 15;
             return true;
-        } else if (Game.world[newX][newY].equals(Tileset.LOCKED_DOOR)) {
+        } else if (Game.world[newX][newY].equals(Tileset.KEY)) {
+            hasKey = true;
+            replaceLockedDoor();
+            return true;
+        } else if (Game.world[newX][newY].equals(Tileset.UNLOCKED_DOOR) && hasKey) {
             win = true;
             return true;
         }
@@ -140,7 +145,7 @@ public class Player implements Serializable {
         int x = (int) Math.floor(StdDraw.mouseX());
         int y = (int) Math.floor(StdDraw.mouseY());
         if (y < Game.HEIGHT) {
-            displayInfo(tileType(Game.world[x][y]));
+            displayInfo(tileType(Game.renWorld[x][y]));
         }
     }
 
@@ -150,13 +155,17 @@ public class Player implements Serializable {
             return "player";
         } else if (x.equals(Tileset.ENEMY)) {
             return "enemy";
-        } else if (x.equals(Tileset.CLOUD)) {
+        } else if (x.equals(Tileset.CLOUD) || x.equals(Tileset.CLOUD_OLD)) {
             return "food";
-        } else if (x.equals(Tileset.LOCKED_DOOR)) {
+        } else if (x.equals(Tileset.LOCKED_DOOR) || x.equals(Tileset.LOCKED_DOOR_OLD)) {
             return "locked_door";
-        } else if (x.equals(Tileset.FLOOR)) {
+        } else if (x.equals(Tileset.UNLOCKED_DOOR) || x.equals(Tileset.UNLOCKED_DOOR_OLD)) {
+            return "unlocked_door";
+        } else if (x.equals(Tileset.KEY) || x.equals(Tileset.KEY_OLD)) {
+            return "key";
+        } else if (x.equals(Tileset.FLOOR) || x.equals(Tileset.FLOOR_OLD)) {
             return "floor";
-        } else if (x.equals(Tileset.WALL)) {
+        } else if (x.equals(Tileset.WALL) || x.equals(Tileset.WALL_OLD)) {
             return "wall";
         } else if (x.equals(Tileset.NOTHING)) {
             return "nothing";
@@ -184,14 +193,34 @@ public class Player implements Serializable {
         StdDraw.show();
     }
 
-    public void placeDoor() {
+    /**
+     * places a door not next to the walls, but somewhere inside the random room
+     */
+    public void placeObject(TETile type) {
         boolean placed = false;
+        Room room = Map.getRooms().get(Game.random.nextInt(Map.getRooms().size() - 1) + 1);
+        Tuple c1 = room.get(1);
+        Tuple c2 = room.get(4);
+        int x1 = c1.x + 2;
+        int x2 = c2.x - 2;
+        int y1 = c1.y + 2;
+        int y2 = c2.y - 2;
         while (!placed) {
-            int w = Game.random.nextInt(Game.WIDTH);
-            int h = Game.random.nextInt(Game.HEIGHT);
+            int w = Game.random.nextInt(x2 - x1) + x1;
+            int h = Game.random.nextInt(y2 - y1) + y1;
             if (Game.world[w][h].equals(Tileset.FLOOR)) {
-                Game.world[w][h] = Tileset.LOCKED_DOOR;
+                Game.world[w][h] = type;
                 placed = true;
+            }
+        }
+    }
+
+    private void replaceLockedDoor() {
+        for (int i = 0; i < Game.WIDTH; i++) {
+            for (int j = 0; j < Game.HEIGHT; j++) {
+                if (Game.world[i][j].equals(Tileset.LOCKED_DOOR) || Game.world[i][j].equals(Tileset.LOCKED_DOOR_OLD)) {
+                    Game.world[i][j] = Tileset.UNLOCKED_DOOR;
+                }
             }
         }
     }

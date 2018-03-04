@@ -94,7 +94,8 @@ public class Menu implements Serializable {
         Player.alive = true;
         Player.win = false;
         Enemy.spawn();
-        Game.player.placeDoor();
+        Game.player.placeObject(Tileset.LOCKED_DOOR);
+        Game.player.placeObject(Tileset.KEY);
     }
 
     // game Over screen
