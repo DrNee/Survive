@@ -34,6 +34,11 @@ public class Menu implements Serializable {
         StdDraw.clear(BGCOLOR);
         StdDraw.setPenColor(79, 175, 255);
         StdDraw.text(WIDTH / 2, HEIGHT * 3 / 4, "S U R V I V E");
+
+        font = new Font("Comic Sans", Font.PLAIN, 20);
+        StdDraw.setFont(font);
+        StdDraw.textLeft(WIDTH - 15, 2, "closed beta version 1.01");
+
         font = new Font("Comic Sans", Font.PLAIN, 30);
         StdDraw.setFont(font);
         StdDraw.text(WIDTH / 2, HEIGHT / 2, "New Game (N)");
