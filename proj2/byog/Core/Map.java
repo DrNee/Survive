@@ -72,7 +72,7 @@ public class Map implements Serializable {
      * Adds rooms to both an arraylist and the map
      * @param numRooms takes in the max amount of rooms per map
      */
-    public void addRooms(int numRooms) {
+    private void addRooms(int numRooms) {
         while (rooms.size() < numRooms && rooms.size() <= maxRooms()) {
             Room room = generateRoom();
             if (rooms.size() == 0 || !room.intersect(rooms, THRESH)) {
@@ -97,7 +97,7 @@ public class Map implements Serializable {
      * can override walls to connect rooms
      * @param type refers to horizontal (0) or vertical (1)
      */
-    public Hallway generateHallway(Room r1, Room r2, int type) {
+    private Hallway generateHallway(Room r1, Room r2, int type) {
         int args1 = 0, args2 = 0, args3 = 0;
         if (type == 0) {
             args1 = r1.calcCenter().x;
@@ -118,7 +118,7 @@ public class Map implements Serializable {
      * randomly selects which room to begin with
      */
     // can alternatively do rooms.size() - 1 to not connect the last room (may be good for gameplay)
-    public void addHallways() {
+    private void addHallways() {
         ArrayList<Room> copy = new ArrayList<>(rooms);
         int temp = Game.random.nextInt(rooms.size());
         for (int i = 0; i < rooms.size(); i++) {
@@ -139,7 +139,7 @@ public class Map implements Serializable {
      * adds hallway to map, checks if horizontal or vertical (0 or 1)
      * @param hw the current hallway, parameters passed in checks the type
      */
-    public void addToMap(Hallway hw) {
+    private void addToMap(Hallway hw) {
         int min = Math.min(hw.getP1(), hw.getP2());
         int max = Math.max(hw.getP1(), hw.getP2());
         if (hw.getType() == 0) {
@@ -157,7 +157,7 @@ public class Map implements Serializable {
     /**
      * changes all nothing tiles to walls that surround a floor
      */
-    public void fillWalls() {
+    private void fillWalls() {
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
                 if (world[i][j].equals(Tileset.NOTHING) && checkSurroundings(i, j)) {
@@ -172,7 +172,7 @@ public class Map implements Serializable {
      * @param x,y the tile being checked
      * @return true/false for whether or not it should be changed
      */
-    public boolean checkSurroundings(int x, int y) {
+    private boolean checkSurroundings(int x, int y) {
         boolean check = false;
         for (int i = -1; i < 2; i++) {
             for (int j = -1; j < 2; j++) {
@@ -195,7 +195,7 @@ public class Map implements Serializable {
      * Creates empty grid for starting map
      * should only be called on first round
      */
-    public void fillEmpty() {
+    private void fillEmpty() {
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
                 world[i][j] = Tileset.NOTHING;
@@ -203,7 +203,7 @@ public class Map implements Serializable {
         }
     }
 
-    public void addFood(double amount) {
+    private void addFood(double amount) {
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
                 if (Game.random.nextDouble() < amount && world[i][j].equals(Tileset.FLOOR)) {

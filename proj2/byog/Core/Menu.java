@@ -25,7 +25,7 @@ public class Menu implements Serializable {
         HEIGHT = h;
     }
 
-    public void mainMenu() {
+    private void mainMenu() {
         StdDraw.setCanvasSize(WIDTH * 16, HEIGHT * 16);
         Font font = new Font("Comic Sans", Font.BOLD, 80);
         StdDraw.setFont(font);
@@ -33,22 +33,26 @@ public class Menu implements Serializable {
         StdDraw.setYscale(0, HEIGHT);
         StdDraw.clear(BGCOLOR);
         StdDraw.setPenColor(79, 175, 255);
-        StdDraw.text(WIDTH / 2, HEIGHT * 3 / 4, "CS61B: THE GAME!");
+        StdDraw.text(WIDTH / 2, HEIGHT * 3 / 4, "S U R V I V E");
         font = new Font("Comic Sans", Font.PLAIN, 30);
         StdDraw.setFont(font);
         StdDraw.text(WIDTH / 2, HEIGHT / 2, "New Game (N)");
-        StdDraw.text(WIDTH / 2, HEIGHT / 2 - 2, "Load Game (L)");
-        StdDraw.text(WIDTH / 2, HEIGHT / 2 - 4, "Quit (Q)");
+        StdDraw.text(WIDTH / 2, HEIGHT / 2 - 2.5, "Load Game (L)");
+        StdDraw.text(WIDTH / 2, HEIGHT / 2 - 5, "Instructions (I)");
+        StdDraw.text(WIDTH / 2, HEIGHT / 2 - 7.5, "Quit (Q)");
         StdDraw.enableDoubleBuffering();
         StdDraw.show();
     }
 
-    public void menuInput() {
+    private void menuInput() {
         while (true) {
             if (StdDraw.hasNextKeyTyped()) {
                 switch (Character.toLowerCase(StdDraw.nextKeyTyped())) {
                     case 'n':
                         seed = seedEnter();
+                        if (seed == -1) {
+                            return;
+                        }
                         startNewGame();
                         return;
                     case 'l':
@@ -57,6 +61,9 @@ public class Menu implements Serializable {
                     case 'q':
                         System.exit(0);
                         break;
+                    case 'i':
+                        instructions();
+                        return;
                     default:
                         break;
                 }
@@ -64,27 +71,45 @@ public class Menu implements Serializable {
         }
     }
 
-    public Long seedEnter() {
-        StdDraw.clear(BGCOLOR);
-        StdDraw.text(WIDTH / 2, HEIGHT / 2, "Enter a seed");
+    private Long seedEnter() {
+        seedText();
         StdDraw.show();
         String temp = "";
         while (true) {
             if (StdDraw.hasNextKeyTyped()) {
                 char curr = Character.toLowerCase(StdDraw.nextKeyTyped());
-                if (curr == 's') {
+                if (curr == 's' && !temp.equals("")) {
+                    break;
+                }
+                if (curr == 'b') {
+                    run();
+                    temp = "-1";
                     break;
                 }
                 if (Character.isDigit(curr)) {
                     temp += curr;
+                    seedText();
+                    StdDraw.text(WIDTH / 2, HEIGHT / 2, temp);
+                    StdDraw.show();
                 }
             }
         }
         return Long.parseLong(temp);
     }
 
+    private void seedText() {
+        StdDraw.clear(BGCOLOR);
+        Font font = new Font("Comic Sans", Font.BOLD, 50);
+        StdDraw.setFont(font);
+        StdDraw.text(WIDTH / 2, HEIGHT / 2 + 7, "Enter a seed");
+        font = new Font("Comic Sans", Font.PLAIN, 30);
+        StdDraw.setFont(font);
+        StdDraw.text(WIDTH / 2, HEIGHT / 2 - 4.5, "Start (S)");
+        StdDraw.text(WIDTH / 2, HEIGHT / 2 - 7, "Back (B)");
+    }
+
     // starts a fresh game
-    public void startNewGame() {
+    private void startNewGame() {
         Game.map = new Map(seed, WIDTH, HEIGHT);
         Game.map.generate();
         Game.world = Game.map.getWorld();
@@ -96,6 +121,38 @@ public class Menu implements Serializable {
         Enemy.spawn();
         Game.player.placeObject(Tileset.LOCKED_DOOR);
         Game.player.placeObject(Tileset.KEY);
+    }
+
+    private void instructions() {
+        Font font = new Font("Comic Sans", Font.BOLD, 50);
+        StdDraw.setFont(font);
+        StdDraw.clear(BGCOLOR);
+        StdDraw.text(WIDTH / 2, HEIGHT - 8, "Instructions");
+        font = new Font("Comic Sans", Font.PLAIN, 30);
+        StdDraw.setFont(font);
+        StdDraw.text(WIDTH / 2, HEIGHT / 2 - 16, "Back (B)");
+        instructionWords();
+        StdDraw.show();
+        while (true) {
+            if (StdDraw.hasNextKeyTyped()) {
+                char curr = StdDraw.nextKeyTyped();
+                if (curr == 'b') {
+                    break;
+                }
+            }
+        }
+        run();
+    }
+
+    private void instructionWords() {
+        StdDraw.setPenColor(100, 100, 100);
+        StdDraw.text(WIDTH / 2, HEIGHT / 2 + 6, "Avoid enemies, touching one is deadly");
+        StdDraw.text(WIDTH / 2, HEIGHT / 2 + 3, "Enemies animation occurs at the same as yours, but enemies move first");
+        StdDraw.text(WIDTH / 2, HEIGHT / 2, "Don't let you're hunger bar reach zero");
+        StdDraw.text(WIDTH / 2, HEIGHT / 2 - 3, "Each food (looks like a cloud) gives you +15 hunger");
+        StdDraw.text(WIDTH / 2, HEIGHT / 2 - 6, "Find the key to unlock the door");
+        StdDraw.text(WIDTH / 2, HEIGHT / 2 - 9, "Enter the unlocked door to win");
+        StdDraw.setPenColor(79, 175, 255);
     }
 
     // game Over screen
@@ -129,7 +186,7 @@ public class Menu implements Serializable {
         restartOrQuit();
     }
 
-    public void restartOrQuit() {
+    private void restartOrQuit() {
         while (true) {
             if (StdDraw.hasNextKeyTyped()) {
                 switch (Character.toLowerCase(StdDraw.nextKeyTyped())) {
@@ -140,12 +197,12 @@ public class Menu implements Serializable {
         }
     }
 
-    public void restart() {
+    private void restart() {
         Game game = new Game();
         game.playWithKeyboard();
     }
 
-    public void renWorldInit() {
+    private void renWorldInit() {
         Game.renWorld = new TETile[Game.WIDTH][Game.HEIGHT];
         for (int i = 0; i < Game.WIDTH; i++) {
             for (int j = 0; j < Game.HEIGHT; j++) {
@@ -155,7 +212,7 @@ public class Menu implements Serializable {
     }
 
     // loads old game data
-    public void loadData() {
+    private void loadData() {
         File check = new File("map.txt");
         if (!check.exists()) {
             System.exit(0);

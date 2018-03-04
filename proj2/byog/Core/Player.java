@@ -21,7 +21,7 @@ public class Player implements Serializable {
     // run keyboard game
     public void run() {
         while (alive && !win) {
-            rayCast();
+            fogOfWar();
             gui();
             input();
             Game.ter.renderFrame(Game.renWorld);
@@ -225,7 +225,7 @@ public class Player implements Serializable {
         }
     }
 
-    public void rayCast() {
+    public void fogOfWar() {
         int visionRadius = hunger / 15;
         if (visionRadius >= 7) {
             visionRadius = 7;

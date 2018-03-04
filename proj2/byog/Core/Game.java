@@ -9,12 +9,12 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Random;
 
-// TODO: add new menu option, I (instructions) along with B (back)
-// TODO: make new tilesets (try to find good color scheme)
-// TODO: replace fov with old tilesets (grayed out)
+// add new menu option, I (instructions) along with B (back)
+// make new tilesets (try to find good color scheme)
+// replace fov with old tilesets (grayed out)
 // TODO: instead of losing instantly, change an encounter with an enemy to be -# hp
 // TODO: enemies can eat food, increase food amounts
-// TODO: if want to make game more interesting, add key to find before entering door
+// if want to make game more interesting, add key to find before entering door
 // less life ==> less radius of vision
 
 public class Game implements Serializable {

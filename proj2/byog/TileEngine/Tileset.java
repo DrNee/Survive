@@ -18,7 +18,7 @@ import java.io.Serializable;
  */
 
 public class Tileset implements Serializable {
-    public static final TETile PLAYER = new TETile('♞', new Color(255, 255, 255), new Color(0, 0, 0), "player");
+    public static final TETile PLAYER = new TETile('人', new Color(56, 132, 255), new Color(147, 255, 226), "player");
     public static final TETile WALL = new TETile('■', new Color(79, 79, 79), new Color(30, 30, 30),
             "wall");
     public static final TETile FLOOR = new TETile('▒', new Color(119, 61, 0), new Color(145, 74, 0),

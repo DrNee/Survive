@@ -42,7 +42,7 @@ public class Vision implements Serializable {
     }
 
     protected static void renderWorld(int rad) {
-        ArrayList<Tuple> points = generateVisiblePoints(rad, Math.toRadians(7.3), .3);
+        ArrayList<Tuple> points = generateVisiblePoints(rad, Math.toRadians(7.3), .1);
         for (int i = 0; i < points.size(); i++) {
             if (checkInside(old, points.get(i))) {
                 old.add(points.get(i));
