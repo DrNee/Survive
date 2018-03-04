@@ -37,7 +37,7 @@ public class Menu implements Serializable {
 
         font = new Font("Comic Sans", Font.PLAIN, 20);
         StdDraw.setFont(font);
-        StdDraw.textLeft(WIDTH - 15, 2, "closed beta version 1.01");
+        StdDraw.textLeft(WIDTH - 15, 2, "closed beta version 1.02");
 
         font = new Font("Comic Sans", Font.PLAIN, 30);
         StdDraw.setFont(font);
@@ -132,7 +132,7 @@ public class Menu implements Serializable {
         Font font = new Font("Comic Sans", Font.BOLD, 50);
         StdDraw.setFont(font);
         StdDraw.clear(BGCOLOR);
-        StdDraw.text(WIDTH / 2, HEIGHT - 8, "Instructions");
+        StdDraw.text(WIDTH / 2, HEIGHT - 7, "Instructions");
         font = new Font("Comic Sans", Font.PLAIN, 30);
         StdDraw.setFont(font);
         StdDraw.text(WIDTH / 2, HEIGHT / 2 - 16, "Back (B)");
@@ -151,10 +151,11 @@ public class Menu implements Serializable {
 
     private void instructionWords() {
         StdDraw.setPenColor(100, 100, 100);
-        StdDraw.text(WIDTH / 2, HEIGHT / 2 + 6, "Avoid enemies, touching one is deadly");
-        StdDraw.text(WIDTH / 2, HEIGHT / 2 + 3, "Enemies animation occurs at the same as yours, but enemies move first");
-        StdDraw.text(WIDTH / 2, HEIGHT / 2, "Don't let you're hunger bar reach zero");
-        StdDraw.text(WIDTH / 2, HEIGHT / 2 - 3, "Each food (looks like a cloud) gives you +15 hunger");
+        StdDraw.text(WIDTH / 2, HEIGHT / 2 + 9, "Avoid enemies, touching one is deadly");
+        StdDraw.text(WIDTH / 2, HEIGHT / 2 + 6, "Enemies animation occurs at the same as yours, but enemies move first");
+        StdDraw.text(WIDTH / 2, HEIGHT / 2 + 3, "Don't let you're hunger bar reach zero");
+        StdDraw.text(WIDTH / 2, HEIGHT / 2, "Each food (looks like a cloud) gives you +15 hunger");
+        StdDraw.text(WIDTH / 2, HEIGHT / 2 - 3, "Your field of vision depends on your hunger level");
         StdDraw.text(WIDTH / 2, HEIGHT / 2 - 6, "Find the key to unlock the door");
         StdDraw.text(WIDTH / 2, HEIGHT / 2 - 9, "Enter the unlocked door to win");
         StdDraw.setPenColor(79, 175, 255);
