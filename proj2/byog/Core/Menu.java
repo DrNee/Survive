@@ -151,13 +151,14 @@ public class Menu implements Serializable {
 
     private void instructionWords() {
         StdDraw.setPenColor(100, 100, 100);
-        StdDraw.text(WIDTH / 2, HEIGHT / 2 + 9, "Avoid enemies, touching one is deadly");
-        StdDraw.text(WIDTH / 2, HEIGHT / 2 + 6, "Enemies animation occurs at the same as yours, but enemies move first");
+        StdDraw.text(WIDTH / 2, HEIGHT / 2 + 12, "W A S D  to move");
+        StdDraw.text(WIDTH / 2, HEIGHT / 2 + 9, "Avoid enemies (☣), touching one is deadly");
+        StdDraw.text(WIDTH / 2, HEIGHT / 2 + 6, "Enemies animation occurs at the same as yours (人), but enemies move first");
         StdDraw.text(WIDTH / 2, HEIGHT / 2 + 3, "Don't let you're hunger bar reach zero");
-        StdDraw.text(WIDTH / 2, HEIGHT / 2, "Each food (looks like a cloud) gives you +15 hunger");
+        StdDraw.text(WIDTH / 2, HEIGHT / 2, "Each food (☁) gives you +15 hunger");
         StdDraw.text(WIDTH / 2, HEIGHT / 2 - 3, "Your field of vision depends on your hunger level");
-        StdDraw.text(WIDTH / 2, HEIGHT / 2 - 6, "Find the key to unlock the door");
-        StdDraw.text(WIDTH / 2, HEIGHT / 2 - 9, "Enter the unlocked door to win");
+        StdDraw.text(WIDTH / 2, HEIGHT / 2 - 6, "Find the key (⚿) to unlock the door (㋬)");
+        StdDraw.text(WIDTH / 2, HEIGHT / 2 - 9, "Enter the unlocked door (▢) to win");
         StdDraw.setPenColor(79, 175, 255);
     }
 
