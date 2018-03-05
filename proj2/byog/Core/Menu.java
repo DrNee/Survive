@@ -183,7 +183,7 @@ public class Menu implements Serializable {
         StdDraw.clear(BGCOLOR);
         StdDraw.setPenColor(79, 175, 180);
         StdDraw.text(Game.WIDTH / 2, Game.HEIGHT / 2 + 7, "C O N G R A T U L A T I O N S");
-        StdDraw.text(Game.WIDTH / 2, Game.HEIGHT / 2 - 1, "Y O U W I N !");
+        StdDraw.text(Game.WIDTH / 2, Game.HEIGHT / 2 - 1, "Y O U  W I N !");
         font = new Font("Comic Sans", Font.BOLD, 30);
         StdDraw.setFont(font);
         StdDraw.text(Game.WIDTH / 2, Game.HEIGHT / 2 - 8, "Restart (R)");

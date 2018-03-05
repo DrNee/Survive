@@ -5,7 +5,7 @@ import byog.TileEngine.Tileset;
 
 import edu.princeton.cs.introcs.StdDraw;
 
-import java.awt.Color;
+import java.awt.*;
 import java.io.Serializable;
 
 public class Player implements Serializable {
@@ -14,17 +14,18 @@ public class Player implements Serializable {
     protected static boolean alive = true;
     protected static boolean win = false;
     private boolean hasKey = false;
+    private String oldTile = "";
     private int hunger = 100;
 
     private static int round = 0;
 
     // run keyboard game
     public void run() {
+        fogOfWar();
+        Game.ter.renderFrame(Game.renWorld);
         while (alive && !win) {
-            fogOfWar();
             gui();
             input();
-            Game.ter.renderFrame(Game.renWorld);
         }
     }
 
@@ -64,6 +65,8 @@ public class Player implements Serializable {
             enemyMove();
             letterCheck(Game.a.removeFirst());
             updatePlayer();
+            fogOfWar();
+            Game.ter.renderFrame(Game.renWorld);
             round++;
         }
     }
@@ -177,6 +180,12 @@ public class Player implements Serializable {
     private void displayInfo(String x) {
         StdDraw.setPenColor(Color.white);
         StdDraw.textLeft(1, Game.HEIGHT, "Current tile: " + x);
+        if (!oldTile.equals(x)) {
+            Game.ter.renderFrame(Game.renWorld);
+            StdDraw.show();
+        }
+        oldTile = x;
+        StdDraw.show();
     }
 
     private void enemyMove() {
@@ -187,10 +196,10 @@ public class Player implements Serializable {
     }
 
     private void gui() {
+        StdDraw.setFont(new Font("Comic Sans", Font.BOLD, 15));
         mouseRead();
         StdDraw.setPenColor(Color.white);
         StdDraw.text(Game.WIDTH / 2, Game.HEIGHT, "Hunger: " + hunger);
-        StdDraw.show();
     }
 
     /**
